@@ -52,20 +52,25 @@
             <form id="searchForm">
                 <input type="text" class="form-control" id="searchInput"
                     placeholder="Search for a movie or a TV show...">
-                <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                <button type="submit" class="btn" id="searchBtn"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </div>
+
     <section id="featured-wrapper" class="container-fluid">
         <div class="row" id="featured-container">
             <img src="assets/img/poster_placeholder.png" class="featured-img" width="100%">
         </div>
     </section>
+
     <main class="container-fluid">
         <div class="row m-auto">
-            <div id="searchResult"></div>
+            <div id="searchResult">
+
+            </div>
         </div>
     </main>
+
     <section class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-xs-12 col-md-4 movie-section" id="popularMovies">
@@ -79,6 +84,7 @@
             </div>
         </div>
     </section>
+
     <footer class="container-fluid fixed-bottom">
         <div class="row">
             <ul class="footer-nav m-auto p-5 list-unstyled d-flex">

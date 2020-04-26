@@ -5,8 +5,8 @@
 :root {
     --site-dark: #004a7c;
     --site-primary: #005691;
-    --site-secondary: #e8f1f5;
-    --site-light: #fafafa;
+    --site-secondary: #8d8d8d;
+    --site-light: #cecece;
 }
 
 /* ========= SEARCH BAR ========= */
