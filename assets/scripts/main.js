@@ -3,7 +3,7 @@ const APIKEY = 'fa720f307355d98a4377c670d41f97af';
 const moviesUrl = 'https://api.themoviedb.org/3/search/movies?api_key=fa720f307355d98a4377c670d41f97af&query=';
 const showsUrl = 'https://api.themoviedb.org/3/search/tv?api_key=fa720f307355d98a4377c670d41f97af&query='
 const imgSrc = 'https://image.tmdb.org/t/p/w500';
-const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=fa720f307355d98a4377c670d41f97af&query='
+const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=fa720f307355d98a4377c670d41f97af&sort_by=popularity.desc&&query='
 
 
 // Get data from an API using users input value
@@ -45,7 +45,7 @@ function movieSection(movies) {
         if (movie.poster_path === null) {
             return `<div class="movie-searched"><img class="poster-img" src="assets/img/poster_placeholder.png" data-movie-id="{movie.id}"/>
             <h3 class="movie-heading">${movie.title}</h3>
-            <h5 class="movie-info">${movie.genre_ids}</h5></div>`
+            <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
         }
         else {
             // get the title from its source whether its tv show or a movie
@@ -53,7 +53,7 @@ function movieSection(movies) {
                 return `<div class="movie-searched">
                 <img class="poster-img" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div>Click for more info</div>
                     <h3 class="movie-heading">${movie.title}</h3>
-                    <h5 class="movie-info">${movie.genre_ids}</h5></div> `;
+                    <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
 
 
             }
@@ -62,7 +62,7 @@ function movieSection(movies) {
                 return `<div class="movie-searched">
             <img class="poster-img" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
             <h3 class="movie-heading">${movie.name}</h3>
-            <h5 class="movie-info">${movie.genre_ids}</h5></div> `;
+            <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
             }
 
 
