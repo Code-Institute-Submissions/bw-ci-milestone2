@@ -19,6 +19,7 @@ $('#searchBtn').on('click', (event) => {
             const movies = data.results;
             const searchContainer = fillSearchContainer(movies);
             searchResult.appendChild(searchContainer);
+            console.log(data)
         })
         .catch((error) => {
             console.log('Error: ', error);
@@ -29,9 +30,8 @@ $('#searchBtn').on('click', (event) => {
 
 function fillSearchContainer(movies) {
     const movieDiv = document.createElement('div');
-    movieDiv.setAttribute('class', 'movie-searched');
-    const resultTemplate = `${movieSection(movies)}
-            `;
+    movieDiv.setAttribute('class', 'result-container');
+    const resultTemplate = `${movieSection(movies)}`;
     movieDiv.innerHTML = resultTemplate;
     return movieDiv;
 }
@@ -41,13 +41,33 @@ function fillSearchContainer(movies) {
 // transform genre id's to corresponding strings
 function movieSection(movies) {
     return movies.map((movie) => {
-        return `<div>
-         <img src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
+        // if statement to check if there is a poster available for a movie
+        if (movie.poster_path === null) {
+            return `<div class="movie-searched"><img class="poster-img" src="assets/img/poster_placeholder.png" data-movie-id="{movie.id}"/>
+            <h3 class="movie-heading">${movie.title}</h3>
+            <h5 class="movie-info">${movie.genre_ids}</h5></div>`
+        }
+        else {
+            // get the title from its source whether its tv show or a movie
+            if (movie.title != undefined) {
+                return `<div class="movie-searched">
+                <img class="poster-img" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div>Click for more info</div>
+                    <h3 class="movie-heading">${movie.title}</h3>
+                    <h5 class="movie-info">${movie.genre_ids}</h5></div> `;
 
-         <h4>${movie.title}</h4>
 
-         <h5>${movie.genre_ids}</h5></div> `;
+            }
+            // get data for TV shows and ommit search results for actors
+            else if (movie.name != undefined && movie.poster_path != null) {
+                return `<div class="movie-searched">
+            <img class="poster-img" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
+            <h3 class="movie-heading">${movie.name}</h3>
+            <h5 class="movie-info">${movie.genre_ids}</h5></div> `;
+            }
 
 
+        }
     })
+        // Removes a comma between search results (template literals append fix)
+        .join('')
 }
