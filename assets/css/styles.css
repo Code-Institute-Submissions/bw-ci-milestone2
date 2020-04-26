@@ -2,7 +2,14 @@
 
 /* ========= COLORS ========= */
 
-/* ========= Search Bar ========= */
+:root {
+    --site-dark: #004a7c;
+    --site-primary: #005691;
+    --site-secondary: #e8f1f5;
+    --site-light: #fafafa;
+}
+
+/* ========= SEARCH BAR ========= */
 
 /* #region */
 
@@ -56,4 +63,50 @@
 
 /* #endregion */
 
+/* ========= FEATURED CONTAINER ========= */
+
+/* #region */
+
+#featured-wrapper {
+    margin: 0.5rem 0;
+}
+
+.featured-img {
+    height: 45vh;
+}
+
+/* #endregion */
+
 /* ========= SEARCH RESULT ========= */
+
+/* #region */
+
+/* #endregion */
+
+/* ========= SEARCH RESULT ========= */
+
+/* #region */
+
+.movie-section {
+    border: 1px solid #323232;
+    background-color: var(--site-secondary);
+}
+
+/* #endregion */
+
+/* ========= SEARCH RESULT ========= */
+
+/* #region */
+
+footer {
+    height: 150px;
+    background-color: var(--site-dark);
+}
+
+footer .fa {
+    color: #fff;
+    font-size: 2em;
+    margin: 10px 30px;
+}
+
+/* #endregion */
