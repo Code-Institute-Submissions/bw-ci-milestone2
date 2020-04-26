@@ -3,7 +3,7 @@
 /* ========= COLORS ========= */
 
 :root {
-    --site-dark: #004a7c;
+    --site-dark: #024069;
     --site-primary: #005691;
     --site-secondary: #8d8d8d;
     --site-light: #cecece;
@@ -94,8 +94,6 @@
 }
 
 .movie-searched {
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
     margin: 10px auto;
     display: flex;
     max-width: 300px;
@@ -108,24 +106,29 @@
 .movie-searched:hover {
     transform: scale(1.2);
     box-shadow: 0px 0px 10px 3px #000;
+    z-index: 10;
+}
+
+.movie-border {
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
 }
 
 .movie-searched>div {
     color: #fff;
     font-size: 24px;
-    padding: 2px 0px;
+    z-index: 1;
     position: relative;
-    width: 100%;
-    margin-top: -40px;
+    top: 0px;
+    width: 292px;
     height: 40px;
     background-color: rgba(24, 24, 24, 0.384);
 }
 
 .poster-img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     align-self: center;
     width: 100%;
+    margin-top: -36px;
 }
 
 .movie-heading {
