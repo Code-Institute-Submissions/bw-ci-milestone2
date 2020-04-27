@@ -32,15 +32,14 @@ $('#searchBtn').on('click', (event) => {
 function fillSearchContainer(movies) {
     let movieDiv = document.createElement('div');
     movieDiv.setAttribute('class', 'result-container');
-    let resultTemplate = `${movieSection(movies)}`;
+    let resultTemplate = `${searchTemplate(movies)}`;
     movieDiv.innerHTML = resultTemplate;
     return movieDiv;
 }
 
 // fill in the data to container 
-// add poster path for TV Shows and exclude search by actor
 // transform genre id's to corresponding strings
-function movieSection(movies) {
+function searchTemplate(movies) {
     return movies.map((movie) => {
         // if statement to check if there is a poster available for a movie
         if (movie.poster_path === null) {
@@ -72,6 +71,7 @@ function movieSection(movies) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+// fetch data for Upcoming Movies, Most Popular Shows, Most popular Movies Sections
 $(document).ready(() => {
     const upcomingMovies = document.querySelector('#upcomingMovies');
     const popularMovies = document.querySelector('#popularMovies');
@@ -108,23 +108,87 @@ $(document).ready(() => {
         })
 })
 function fillUpcomingContainer(upcomingResults) {
-    let upcomingDiv = document.createElement('div');
-    upcomingDiv.setAttribute('class', 'upcoming-container');
-    let resultTemplate = `${movieSection(upcomingResults)}`;
-    upcomingDiv.innerHTML = resultTemplate;
-    return upcomingDiv;
+    let container = document.createElement('div');
+    container.setAttribute('class', 'list-container');
+    let resultTemplate = `${upcomingTemplate(upcomingResults)}`;
+    container.innerHTML = `<h2 class="section-heading">Upcoming Releases</h2>` + resultTemplate;
+    return container;
 }
 function fillMovieContainer(popularMovieResults) {
-    let popularMovieDiv = document.createElement('div');
-    popularMovieDiv.setAttribute('class', 'movie-popular-container');
-    let resultTemplate = `${movieSection(popularMovieResults)}`;
-    popularMovieDiv.innerHTML = resultTemplate;
-    return popularMovieDiv;
+    let container = document.createElement('div');
+    container.setAttribute('class', 'list-container');
+    let resultTemplate = `${popularTemplate(popularMovieResults)}`;
+    container.innerHTML = `<h2 class="section-heading">Most Popular Movies</h2>` + resultTemplate;
+    return container;
 }
 function fillShowsContainer(popularShowsResults) {
-    let popularShowsDiv = document.createElement('div');
-    popularShowsDiv.setAttribute('class', 'shows-popular-container');
-    let resultTemplate = `${movieSection(popularShowsResults)}`;
-    popularShowsDiv.innerHTML = resultTemplate;
-    return popularShowsDiv;
+    let container = document.createElement('div');
+    container.setAttribute('class', 'list-container');
+    let resultTemplate = `${popularTemplate(popularShowsResults)}`;
+    container.innerHTML = `<h2 class="section-heading">Most Popular Shows</h2>` + resultTemplate;
+    return container;
+} function popularTemplate(movies) {
+    return movies.map((movie) => {
+        // put placeholder img if no poster available in API
+        if (movie.poster_path === null) {
+            return `<div class="data-list">
+            <img class="thumbnail" src="assets/img/poster_placeholder.png" data-movie-id="${movie.id}"/><div class ="container">
+            <h3 class="list-heading">${movie.title}</h3>
+            <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
+        }
+        else {
+            // if statement to correctly display Movie Data
+            if (movie.title != undefined) {
+                return `<div class="data-list">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <h3 class="list-heading">${movie.title}</h3>
+                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
+
+
+            }
+            // else if statement to get data for TV Show
+            else if (movie.name != undefined && movie.poster_path != null) {
+                return `<div class="data-list">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <h3 class="list-heading">${movie.name}</h3>
+                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
+            }
+
+
+        }
+    })
+        // Removes a comma between search results (template literals append fix)
+        .join('')
+} function upcomingTemplate(movies) {
+    return movies.map((movie) => {
+        // put placeholder img if no poster available in API
+        if (movie.poster_path === null) {
+            return `<div class="data-list">
+            <img class="thumbnail" src="assets/img/poster_placeholder.png" data-movie-id="${movie.id}"/><div class ="container">
+            <h3 class="list-heading">${movie.title}</h3>
+            <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
+            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5></div></div> `;
+        }
+        else {
+            return `<div class="data-list">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <h3 class="list-heading">${movie.title}</h3>
+                <span style="display:flex">
+                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
+                <h5 class="list-info pl-4">${movie.release_date}</h5>
+                </span>
+                <h5 class="list-info">${movie.overview.slice(0, 45) + '...'}</h5><button class="button-info float-right">More Info</button>
+                </div>
+                </div> `;
+
+
+
+        }
+
+    }
+
+
+    )
+        // Removes a comma between search results (template literals append fix)
+        .join('')
 }
