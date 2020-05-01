@@ -127,7 +127,8 @@ function fillShowsContainer(popularShowsResults) {
     let resultTemplate = `${popularTemplate(popularShowsResults)}`;
     container.innerHTML = `<h2 class="section-heading">Most Popular Shows</h2>` + resultTemplate;
     return container;
-} function popularTemplate(movies) {
+}
+function popularTemplate(movies) {
     return movies.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
@@ -142,16 +143,27 @@ function fillShowsContainer(popularShowsResults) {
                 return `<div class="data-list">
                 <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
                 <h3 class="list-heading">${movie.title}</h3>
-                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
-
-
+                <span style="display:flex">
+                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
+                <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
+                </span>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
+                </div>
+                </div> `;
             }
             // else if statement to get data for TV Show
             else if (movie.name != undefined && movie.poster_path != null) {
                 return `<div class="data-list">
                 <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
                 <h3 class="list-heading">${movie.name}</h3>
-                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
+                <span style="display:flex">
+                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
+                <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
+                </span>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
+                </div>
+                </div> `;
+
             }
 
 
@@ -159,7 +171,8 @@ function fillShowsContainer(popularShowsResults) {
     })
         // Removes a comma between search results (template literals append fix)
         .join('')
-} function upcomingTemplate(movies) {
+}
+function upcomingTemplate(movies) {
     return movies.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
@@ -167,7 +180,7 @@ function fillShowsContainer(popularShowsResults) {
             <img class="thumbnail" src="assets/img/poster_placeholder.png" data-movie-id="${movie.id}"/><div class ="container">
             <h3 class="list-heading">${movie.title}</h3>
             <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5></div></div> `;
+            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button class="button-info float-right">More Info</button></div></div> `;
         }
         else {
             return `<div class="data-list">
@@ -177,7 +190,7 @@ function fillShowsContainer(popularShowsResults) {
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.release_date}</h5>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 45) + '...'}</h5><button class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
                 </div>
                 </div> `;
 
@@ -192,3 +205,5 @@ function fillShowsContainer(popularShowsResults) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+
+// selecting a movie opens up a new tab with all the movie ////details 

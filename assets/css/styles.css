@@ -1,5 +1,7 @@
 /* ========= GENERAL ========= */
 
+/* #region */
+
 .gradient {
     background: rgb(249, 249, 249);
     background: -moz-linear-gradient(90deg, rgba(249, 249, 249, 1) 10%, rgba(247, 247, 247, 1) 20%, rgba(245, 245, 245, 1) 30%, rgba(243, 243, 243, 1) 40%, rgba(241, 241, 241, 1) 50%, rgba(232, 232, 232, 1) 60%, rgba(229, 229, 229, 1) 70%, rgba(226, 226, 226, 1) 80%, rgba(217, 217, 217, 1) 90%);
@@ -15,6 +17,8 @@
     --site-secondary: #8d8d8d;
     --site-light: #cecece;
 }
+
+/* #endregion */
 
 /* ========= SEARCH BAR ========= */
 
@@ -81,7 +85,7 @@
 }
 
 .featured-img {
-    height: 45vh;
+    height: 450px;
 }
 
 /* #endregion */
@@ -170,6 +174,7 @@
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
+    min-height: 56px;
 }
 
 .data-list>.container {
@@ -182,6 +187,10 @@
     font-size: 1.3rem;
     font-weight: 600;
     font-style: italic;
+    max-height: 50px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .list-info {
@@ -208,6 +217,7 @@
 }
 
 .button-info {
+    position: relative;
     color: #fff;
     padding: 3px 8px;
     border: none;
