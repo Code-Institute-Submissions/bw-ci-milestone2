@@ -210,7 +210,7 @@ document.onclick = function () {
         .then((data) => {
             console.log(data)
             infoModal.innerHTML = '';
-            const movieDetailed = data.results;
+            const movieDetailed = data;
             infoModal.appendChild(getDetail(movieDetailed));
         });
     let moreInfoBtn = document.getElementById("moreInfo");
@@ -221,7 +221,7 @@ document.onclick = function () {
     function getDetail(movieDetailed) {
         let modalBox = document.createElement('div');
         modalBox.setAttribute('class', 'modal-content');
-        modalBox.innerHTML = `<h2>movie.detailed.title</h2>`
+        modalBox.innerHTML = `<h2>movie.detailed.title ${movieDetailed.title}</h2>`
         return modalBox
     }
 };
