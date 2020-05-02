@@ -79,8 +79,7 @@ $(document).ready(() => {
     fetch(upcomingUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-
+            console.log(data);
             upcomingMovies.innerHTML = '';
             const upcomingResults = data.results;
             const getUpcoming = fillUpcomingContainer(upcomingResults);
@@ -100,7 +99,6 @@ $(document).ready(() => {
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
-
             popularShows.innerHTML = '';
             const popularShowsResults = data.results;
             const getPopularShows = fillShowsContainer(popularShowsResults);
@@ -128,12 +126,13 @@ function fillShowsContainer(popularShowsResults) {
     container.innerHTML = `<h2 class="section-heading">Most Popular Shows</h2>` + resultTemplate;
     return container;
 }
+// function used to build a template for popular movie and popular shows columns
 function popularTemplate(movies) {
     return movies.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `<div class="data-list">
-            <img class="thumbnail" src="assets/img/poster_placeholder.png" data-movie-id="${movie.id}"/><div class ="container">
+            <img class="thumbnail" src="assets/img/poster_placeholder.png"/><div class ="container">
             <h3 class="list-heading">${movie.title}</h3>
             <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
         }
@@ -141,69 +140,89 @@ function popularTemplate(movies) {
             // if statement to correctly display Movie Data
             if (movie.title != undefined) {
                 return `<div class="data-list">
-                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}"/><div class ="container">
                 <h3 class="list-heading">${movie.title}</h3>
                 <span style="display:flex">
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
                 </div>
                 </div> `;
             }
             // else if statement to get data for TV Show
             else if (movie.name != undefined && movie.poster_path != null) {
                 return `<div class="data-list">
-                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}"/><div class ="container">
                 <h3 class="list-heading">${movie.name}</h3>
                 <span style="display:flex">
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
                 </div>
                 </div> `;
-
             }
-
-
         }
     })
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+// function used to build a template for upcoming column
 function upcomingTemplate(movies) {
     return movies.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `<div class="data-list">
-            <img class="thumbnail" src="assets/img/poster_placeholder.png" data-movie-id="${movie.id}"/><div class ="container">
+            <img class="thumbnail" src="assets/img/poster_placeholder.png"/><div class ="container">
             <h3 class="list-heading">${movie.title}</h3>
             <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button class="button-info float-right">More Info</button></div></div> `;
+            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button></div></div> `;
         }
         else {
             return `<div class="data-list">
-                <img class="thumbnail" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" /><div class ="container">
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}"/><div class ="container">
                 <h3 class="list-heading">${movie.title}</h3>
                 <span style="display:flex">
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.release_date}</h5>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
                 </div>
                 </div> `;
-
-
-
         }
-
     }
-
-
     )
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
 
 // selecting a movie opens up a new tab with all the movie ////details 
+document.onclick = function () {
+    console.log(event)
+    const infoModal = document.querySelector("#infoModal");
+    const target = event.target;
+    const movieId = target.dataset.movieId;
+    const getDetailUrl = `https://api.themoviedb.org/3/movie/` + movieId + `?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images`
+    console.log(movieId)
+    fetch(getDetailUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            infoModal.innerHTML = '';
+            const movieDetailed = data.results;
+            infoModal.appendChild(getDetail(movieDetailed));
+        });
+    let moreInfoBtn = document.getElementById("moreInfo");
+
+    moreInfoBtn.onclick = function () {
+        infoModal.style.display = "block";
+    }
+    function getDetail(movieDetailed) {
+        let modalBox = document.createElement('div');
+        modalBox.setAttribute('class', 'modal-content');
+        modalBox.innerHTML = `<h2>movie.detailed.title</h2>`
+        return modalBox
+    }
+};
+
