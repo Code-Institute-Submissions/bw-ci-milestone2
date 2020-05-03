@@ -4,6 +4,7 @@ const moviesUrl = 'https://api.themoviedb.org/3/search/movies?api_key=fa720f3073
 const showsUrl = 'https://api.themoviedb.org/3/search/tv?api_key=fa720f307355d98a4377c670d41f97af&query='
 const imgSrc = 'https://image.tmdb.org/t/p/w500';
 const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=fa720f307355d98a4377c670d41f97af&sort_by=popularity.desc&&query='
+const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=fa720f307355d98a4377c670d41f97af'
 const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
@@ -26,6 +27,7 @@ userSearch.addEventListener('click', function (event) {
         .catch((error) => {
             console.log('Error: ', error);
         });
+    // Hide featured container when user searches for a movie
     let featuredDiv = document.querySelector("#featuredWrapper");
     featuredDiv.style.display = 'none';
 })
@@ -153,7 +155,7 @@ function popularTemplate(movies) {
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
                 </div> `;
             }
@@ -166,7 +168,7 @@ function popularTemplate(movies) {
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
                 </div> `;
             }
@@ -184,7 +186,7 @@ function upcomingTemplate(movies) {
             <img class="thumbnail" src="assets/img/poster_placeholder.png"/><div class ="container">
             <h3 class="list-heading">${movie.title}</h3>
             <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button></div></div> `;
+            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button></div></div> `;
         }
         else {
             return `<div class="data-list">
@@ -194,19 +196,19 @@ function upcomingTemplate(movies) {
                 <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
                 <h5 class="list-info pl-4">${movie.release_date}</h5>
                 </span>
-                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right">More Info</button>
+                <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
                 </div> `;
         }
     }
+
     )
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
-
-const infoModal = document.querySelector("#infoModal");
-// selecting a movie opens up a new tab with all the movie ////details 
-document.onclick = function () {
+// selecting a movie opens up a new tab with all the movie ////details
+/*
+infoModal.addEventListener('click', function (event) {
     console.log(event)
     const target = event.target;
     const movieId = target.dataset.movieId;
@@ -220,16 +222,9 @@ document.onclick = function () {
             const movieDetailed = data;
             infoModal.appendChild(getDetail(movieDetailed));
         });
-    let moreInfoBtn = document.getElementById("moreInfo");
 
-    moreInfoBtn.onclick = function () {
-        infoModal.style.display = "block";
-    }
-    function getDetail(movieDetailed) {
-        let modalBox = document.createElement('div');
-        modalBox.setAttribute('class', 'modal-content');
-        modalBox.innerHTML = `<h2>movie.detailed.title ${movieDetailed.title}</h2>`
-        return modalBox
-    }
-};
+})
+*/
+/* Featured Container */
+https://api.themoviedb.org/3/trending/movie/week?api_key=fa720f307355d98a4377c670d41f97af
 
