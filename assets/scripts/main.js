@@ -1,7 +1,5 @@
 // API sources
 const APIKEY = 'fa720f307355d98a4377c670d41f97af';
-const moviesUrl = 'https://api.themoviedb.org/3/search/movies?api_key=fa720f307355d98a4377c670d41f97af&query=';
-const showsUrl = 'https://api.themoviedb.org/3/search/tv?api_key=fa720f307355d98a4377c670d41f97af&query='
 const imgSrc = 'https://image.tmdb.org/t/p/w500';
 const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=fa720f307355d98a4377c670d41f97af&sort_by=popularity.desc&&query='
 const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=fa720f307355d98a4377c670d41f97af'
@@ -94,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Upcoming', data);
             upcomingMovies.innerHTML = '';
             let upcomingResults = data.results;
-            let getUpcoming = fillUpcomingContainer(upcomingResults);
+            let getUpcoming = createUpcomingContainer(upcomingResults);
             upcomingMovies.appendChild(getUpcoming)
         })
     // Fetch Data for Popular Movier Column, assign results and append to HTML section
@@ -105,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             popularMovies.innerHTML = '';
             const popularMovieResults = data.results;
-            const getPopularMovies = fillMovieContainer(popularMovieResults);
+            const getPopularMovies = createMovieContainer(popularMovieResults);
             popularMovies.appendChild(getPopularMovies)
         })
     // Fetch Data for Popular Shows Column, assign results and append to HTML section
@@ -115,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('PopularShows', data)
             popularShows.innerHTML = '';
             let popularShowsResults = data.results;
-            let getPopularShows = fillShowsContainer(popularShowsResults);
+            let getPopularShows = createShowsContainer(popularShowsResults);
             popularShows.appendChild(getPopularShows)
         })
     // Fetch Data for Featured Movie hero area, assign results and append to HTML section
@@ -128,14 +126,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })
 })
 // Function to create container for Upcoming data results and get the template for html/css
-function fillUpcomingContainer(upcomingResults) {
+function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${upcomingTemplate(upcomingResults)}`;
     container.innerHTML = `<h2 class="section-heading">Upcoming Releases</h2>` + resultTemplate;
     return container;
 }// Function to create container for Popular Movies data results and get the template for html/css
-function fillMovieContainer(popularMovieResults) {
+function createMovieContainer(popularMovieResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${popularTemplate(popularMovieResults)}`;
@@ -143,7 +141,7 @@ function fillMovieContainer(popularMovieResults) {
     return container;
 }
 // Function to create container for Popular Shows data results and get the template for html/css
-function fillShowsContainer(popularShowsResults) {
+function createShowsContainer(popularShowsResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${popularTemplate(popularShowsResults)}`;
@@ -241,3 +239,6 @@ infoModal.addEventListener('click', function (event) {
 })
 */
 /* Featured Container */
+function createFeaturedContainer(featuredResults) {
+
+}
