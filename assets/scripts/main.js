@@ -8,23 +8,26 @@ const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=fa720f3
 const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 // Get data from an API using users input value
-$('#searchBtn').on('click', (event) => {
+
+let userSearch = document.querySelector('#searchBtn');
+userSearch.addEventListener('click', function (event) {
     event.preventDefault();
     const searchResult = document.querySelector('#searchResult');
     const searchInput = $('#searchInput').val();
-
     fetch(searchAllUrl + searchInput)
         .then((response) => response.json())
         .then((data) => {
             searchResult.innerHTML = '';
-            const movies = data.results;
-            const searchContainer = fillSearchContainer(movies);
+            let movies = data.results;
+            let searchContainer = fillSearchContainer(movies);
             searchResult.appendChild(searchContainer);
             console.log(data)
         })
         .catch((error) => {
             console.log('Error: ', error);
         });
+    let featuredDiv = document.querySelector("#featuredWrapper");
+    featuredDiv.style.display = 'none';
 })
 
 // generate a container for search result and fill in the data with movieSection function
@@ -43,26 +46,30 @@ function searchTemplate(movies) {
     return movies.map((movie) => {
         // if statement to check if there is a poster available for a movie
         if (movie.poster_path === null) {
-            return `<div class="movie-searched movie-border"><div class="movie-border">Click for more info</div><img class="poster-img movie-border" src="assets/img/poster_placeholder.png" data-movie-id="{movie.id}"/>
+            return `<div class="movie-searched movie-border">
+            <div class="movie-border">Click for more info</div>
+            <img class="poster-img movie-border" src="assets/img/poster_placeholder.png" data-movie-id="{movie.id}"/>
             <h3 class="movie-heading">${movie.title}</h3>
             <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
         }
         else {
             // get the title from its source whether its tv show or a movie
             if (movie.title != undefined) {
-                return `<div class="movie-searched movie-border"><div class="movie-border">Click for more info</div>
+                return `<div class="movie-searched movie-border">
+                <div class="movie-border">Click for more info</div>
                 <img class="poster-img movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
-                    <h3 class="movie-heading">${movie.title}</h3>
-                    <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
+                <h3 class="movie-heading">${movie.title.slice(0, 34)}</h3>
+                <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
 
 
             }
             // get data for TV shows and ommit search results for actors
             else if (movie.name != undefined && movie.poster_path != null) {
-                return `<div class="movie-searched movie-border"><div class ="movie-border">Click for more info</div>
-            <img class="poster-img movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
-            <h3 class="movie-heading">${movie.name}</h3>
-            <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
+                return `<div class="movie-searched movie-border">
+                <div class ="movie-border">Click for more info</div>
+                <img class="poster-img movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
+                <h3 class="movie-heading">${movie.name}</h3>
+                <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
             }
 
 
@@ -72,7 +79,7 @@ function searchTemplate(movies) {
         .join('')
 }
 // fetch data for Upcoming Movies, Most Popular Shows, Most popular Movies Sections
-$(document).ready(() => {
+document.addEventListener("DOMContentLoaded", function () {
     const upcomingMovies = document.querySelector('#upcomingMovies');
     const popularMovies = document.querySelector('#popularMovies');
     const popularShows = document.querySelector('#popularShows');
@@ -81,8 +88,8 @@ $(document).ready(() => {
         .then((data) => {
             console.log(data);
             upcomingMovies.innerHTML = '';
-            const upcomingResults = data.results;
-            const getUpcoming = fillUpcomingContainer(upcomingResults);
+            let upcomingResults = data.results;
+            let getUpcoming = fillUpcomingContainer(upcomingResults);
             upcomingMovies.appendChild(getUpcoming)
         })
     fetch(popularMoviesUrl)
@@ -100,8 +107,8 @@ $(document).ready(() => {
         .then((data) => {
             console.log(data)
             popularShows.innerHTML = '';
-            const popularShowsResults = data.results;
-            const getPopularShows = fillShowsContainer(popularShowsResults);
+            let popularShowsResults = data.results;
+            let getPopularShows = fillShowsContainer(popularShowsResults);
             popularShows.appendChild(getPopularShows)
         })
 })
@@ -197,10 +204,10 @@ function upcomingTemplate(movies) {
         .join('')
 }
 
+const infoModal = document.querySelector("#infoModal");
 // selecting a movie opens up a new tab with all the movie ////details 
 document.onclick = function () {
     console.log(event)
-    const infoModal = document.querySelector("#infoModal");
     const target = event.target;
     const movieId = target.dataset.movieId;
     const getDetailUrl = `https://api.themoviedb.org/3/movie/` + movieId + `?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images`
