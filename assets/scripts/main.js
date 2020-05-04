@@ -79,12 +79,12 @@ function searchTemplate(movies) {
         .join('')
 }
 // fetch data from different API sources and display Landing Page content
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function (event) {
     const upcomingMovies = document.querySelector('#upcomingMovies');
     const popularMovies = document.querySelector('#popularMovies');
     const popularShows = document.querySelector('#popularShows');
     const featured = document.querySelector('#featuredContainer');
-
+    event.preventDefault();
     // Fetch Data for Upcoming Column, assign results and append to HTML section
     fetch(upcomingUrl)
         .then((response) => response.json())
@@ -116,15 +116,37 @@ document.addEventListener("DOMContentLoaded", function () {
             let getPopularShows = createShowsContainer(popularShowsResults);
             popularShows.appendChild(getPopularShows)
         })
+        .catch((error) => {
+            console.log('Error: ', error);
+        });
     // Fetch Data for Featured Movie hero area, assign results and append to HTML section
     fetch(featuredUrl)
         .then((response) => response.json())
         .then((data) => {
             console.log('FeaturedUrl', data)
             featured.innerHTML = '';
-            let featuredResults = data.results
+            let featuredResults = data.results;
+            //select random from the featuredResults array
+            let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
+            let getFeatured = createFeaturedContainer(randomResult);
+            featured.appendChild(getFeatured);
+            console.log(randomResult)
+            console.log(typeof randomResult)
         })
+
 })
+function createFeaturedContainer(randomResult) {
+
+
+    let container = document.createElement('div');
+    container.setAttribute('class', 'featured');
+    let content = `${randomResult.title}`;
+    container.innerHTML = content;
+    return container;
+    ;
+}
+
+
 // Function to create container for Upcoming data results and get the template for html/css
 function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
@@ -149,8 +171,8 @@ function createShowsContainer(popularShowsResults) {
     return container;
 }
 // function used to build a template for popular movie and popular shows columns
-function popularTemplate(movies) {
-    return movies.map((movie) => {
+function popularTemplate(popularShowsResults) {
+    return popularShowsResults.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `<div class="data-list">
@@ -191,8 +213,8 @@ function popularTemplate(movies) {
         .join('')
 }
 // function used to build a template for upcoming column
-function upcomingTemplate(movies) {
-    return movies.map((movie) => {
+function upcomingTemplate(upcomingResults) {
+    return upcomingResults.map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `<div class="data-list">
@@ -239,6 +261,3 @@ infoModal.addEventListener('click', function (event) {
 })
 */
 /* Featured Container */
-function createFeaturedContainer(featuredResults) {
-
-}
