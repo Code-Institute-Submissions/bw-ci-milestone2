@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             console.log('Error: ', error);
         });
     // Fetch Data for Featured Movie hero area, assign results and append to HTML section
+    // Fetches from Trending and generates random object from array
     fetch(featuredUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -130,20 +131,34 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
             let getFeatured = createFeaturedContainer(randomResult);
             featured.appendChild(getFeatured);
-            console.log(randomResult)
-            console.log(typeof randomResult)
+            console.log('RandomResult', typeof randomResult, randomResult)
+            changeUrl(randomResult)
         })
 
 })
-function createFeaturedContainer(randomResult) {
+//Takes randomly selected item from Trending and fetches it by id to another API call ( allows appending videos and images)
+function changeUrl(randomResult) {
+    let id = randomResult.id;
+    console.log('id of randomresult', typeof id, id)
 
+    const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&append_to_response=videos,images`
+    fetch(getDetails)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('detail', data)
+        })
+}
+// get ID of random Result and pass it to fetch movie with &append_to_response=videos
+function createFeaturedContainer(randomResult) {
+    var imgPath = `${imgSrc + randomResult.backdrop_path}`;
 
     let container = document.createElement('div');
     container.setAttribute('class', 'featured');
+    container.style.backgroundImage = 'url(' + imgPath + ')';
     let content = `${randomResult.title}`;
     container.innerHTML = content;
     return container;
-    ;
+
 }
 
 

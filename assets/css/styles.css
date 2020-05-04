@@ -131,10 +131,22 @@
     margin: 0.5rem 0;
 }
 
-.featured-img {
-    height: 450px;
+.featured {
+    margin: 0 auto;
+    width: 100%;
+    height: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+@media (min-width: 566px) {
+    .featured {
+        height: 500px;
+    }
+}
+
+@media
 /* #endregion */
 
 /* ========= SEARCH RESULT ========= */
