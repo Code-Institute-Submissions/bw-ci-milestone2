@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const upcomingMovies = document.querySelector('#upcomingMovies');
     const popularMovies = document.querySelector('#popularMovies');
     const popularShows = document.querySelector('#popularShows');
-    const featured = document.querySelector('#featuredContainer');
     event.preventDefault();
     // Fetch Data for Upcoming Column, assign results and append to HTML section
     fetch(upcomingUrl)
@@ -125,41 +124,65 @@ document.addEventListener("DOMContentLoaded", function (event) {
         .then((response) => response.json())
         .then((data) => {
             console.log('FeaturedUrl', data)
-            featured.innerHTML = '';
             let featuredResults = data.results;
             //select random from the featuredResults array
             let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
-            let getFeatured = createFeaturedContainer(randomResult);
-            featured.appendChild(getFeatured);
-            console.log('RandomResult', typeof randomResult, randomResult)
             changeUrl(randomResult)
         })
-
 })
+
 //Takes randomly selected item from Trending and fetches it by id to another API call ( allows appending videos and images)
 function changeUrl(randomResult) {
     let id = randomResult.id;
     console.log('id of randomresult', typeof id, id)
 
+    const featured = document.querySelector('#featuredContainer');
     const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&append_to_response=videos,images`
     fetch(getDetails)
         .then((response) => response.json())
         .then((data) => {
-            console.log('detail', data)
+            let detailedRandom = data;
+
+            featured.innerHTML = '';
+            console.log('detail', detailedRandom)
+            console.log(typeof detailedRandom);
+            console.log(Object.keys(detailedRandom))
+            let getFeatured = createFeaturedContainer(detailedRandom);
+            featured.appendChild(getFeatured);
+            console.log('detailedRandom', typeof detailedRandom, detailedRandom)
         })
 }
-// get ID of random Result and pass it to fetch movie with &append_to_response=videos
-function createFeaturedContainer(randomResult) {
-    var imgPath = `${imgSrc + randomResult.backdrop_path}`;
 
+
+function createFeaturedContainer(detailedRandom) {
+    Object.keys(detailedRandom).forEach(function (key) {
+        console.log(key)
+    })
+    let imgPath = `${imgSrc + detailedRandom.backdrop_path}`;
     let container = document.createElement('div');
     container.setAttribute('class', 'featured');
     container.style.backgroundImage = 'url(' + imgPath + ')';
-    let content = `${randomResult.title}`;
+    let content = `
+    <div class="featured-content">
+        <div class="poster">
+            <img class="featured-poster" src="${imgSrc + detailedRandom.poster_path}"/>
+        </div>
+
+        <div class ="movie-overview">
+            <h1>${detailedRandom.title}</h1>
+            <p class="overview-content>${detailedRandom.tagline}</p>
+            <p class="overview-content>${detailedRandom.popularity}</p>
+            <p class="overview-content>${detailedRandom.vote_average}</p>
+            <p class="overview-content>${detailedRandom.overview}</p>
+            <p class="overview-content>${detailedRandom.images}</p>
+            <p class="overview-content>${detailedRandom.release_date}</p>
+        </div>
+    </div>`;
+    console.log('tagline', typeof detailedRandom.tagline, detailedRandom.tagline)
     container.innerHTML = content;
     return container;
-
 }
+// get ID of random Result and pass it to fetch movie with &append_to_response=videos
 
 
 // Function to create container for Upcoming data results and get the template for html/css
@@ -256,23 +279,3 @@ function upcomingTemplate(upcomingResults) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
-// selecting a movie opens up a new tab with all the movie ////details
-/*
-infoModal.addEventListener('click', function (event) {
-    console.log(event)
-    const target = event.target;
-    const movieId = target.dataset.movieId;
-    const getDetailUrl = `https://api.themoviedb.org/3/movie/` + movieId + `?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images`
-    console.log(movieId)
-    fetch(getDetailUrl)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            infoModal.innerHTML = '';
-            const movieDetailed = data;
-            infoModal.appendChild(getDetail(movieDetailed));
-        });
-
-})
-*/
-/* Featured Container */
