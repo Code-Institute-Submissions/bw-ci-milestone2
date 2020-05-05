@@ -161,6 +161,7 @@ function createFeaturedContainer(detailedRandom) {
     let imgPath = `${imgSrc + detailedRandom.backdrop_path}`;
     let container = document.createElement('div');
     container.setAttribute('class', 'featured');
+    container.setAttribute('id', 'featured');
     container.style.backgroundImage = 'url(' + imgPath + ')';
     let content = `
     <div class="featured-content">
@@ -170,17 +171,28 @@ function createFeaturedContainer(detailedRandom) {
 
         <div class ="movie-overview">
             <h1>${detailedRandom.title}</h1>
-            <p class="overview-content>${detailedRandom.tagline}</p>
-            <p class="overview-content>${detailedRandom.popularity}</p>
-            <p class="overview-content>${detailedRandom.vote_average}</p>
-            <p class="overview-content>${detailedRandom.overview}</p>
-            <p class="overview-content>${detailedRandom.images}</p>
-            <p class="overview-content>${detailedRandom.release_date}</p>
+            <p class="overview-content">${detailedRandom.tagline}</p>
+            <div style="display:flex; flex-direction: row; 
+            justify-content: space-between">
+            <p class="overview-content">${detailedRandom.release_date}</p>
+            <p class="overview-content">${detailedRandom.popularity}</p>
+            <p class="overview-content">${detailedRandom.vote_average}</p>
+            </div>
+            <p class="overview-content slide">${detailedRandom.overview}</p>
+            <div class="featured-images">${detailedRandom.images}</div>
         </div>
     </div>`;
     console.log('tagline', typeof detailedRandom.tagline, detailedRandom.tagline)
     container.innerHTML = content;
     return container;
+
+} window.onload = function () {
+    let featuredBackdrop = document.querySelector("#featured");
+    featuredBackdrop.addEventListener('click', function (event) {
+
+        event.preventDefault();
+        featuredBackdrop.style.height = '700px'
+    })
 }
 // get ID of random Result and pass it to fetch movie with &append_to_response=videos
 

@@ -147,6 +147,7 @@ input[type=text] {
 }
 
 .featured-content {
+    z-index: 2;
     display: block;
     position: absolute;
     display: flex;
@@ -156,7 +157,7 @@ input[type=text] {
     background-color: rgba(255, 255, 255, 0.9);
     min-width: 577px;
     transform: translateX(-50%);
-    height: 300px;
+    height: 370px;
 }
 
 .poster {
@@ -165,16 +166,19 @@ input[type=text] {
 }
 
 .featured-poster {
-    width: 200px;
+    width: 230px;
     height: 100%;
 }
 
 .movie-overview {
     color: #000;
+    padding: 15px;
 }
 
-.overview-content {
-    margin: 0;
+.movie-overview p {
+    max-height: 170px;
+    margin: 0.5rem;
+    overflow: scroll;
 }
 
 @media (min-width: 578px) {
