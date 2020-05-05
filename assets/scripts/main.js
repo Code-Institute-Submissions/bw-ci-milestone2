@@ -170,7 +170,7 @@ function createFeaturedContainer(detailedRandom) {
         </div>
 
         <div class ="movie-overview">
-            <h1>${detailedRandom.title}</h1>
+            <h2>${detailedRandom.title}</h2>
             <p class="overview-content">${detailedRandom.tagline}</p>
             <div style="display:flex; flex-direction: row; 
             justify-content: space-between">
@@ -179,10 +179,17 @@ function createFeaturedContainer(detailedRandom) {
             <p class="overview-content">${detailedRandom.vote_average}</p>
             </div>
             <p class="overview-content slide">${detailedRandom.overview}</p>
-            <div class="featured-images">${detailedRandom.images}</div>
+            <form class="overview-content slide" action="https://www.imdb.com/title/${detailedRandom.imdb_id}/">
+                <input type="submit" value="IMDB.com" />
+            </form>
+            <div class="featured-videos">${detailedRandom.videos.results}</div>
         </div>
     </div>`;
-    console.log('tagline', typeof detailedRandom.tagline, detailedRandom.tagline)
+    detailedRandom.videos.results.forEach(video => {
+        console.log(video);
+
+    });
+    console.log('videos', typeof detailedRandom.videos, detailedRandom.videos)
     container.innerHTML = content;
     return container;
 

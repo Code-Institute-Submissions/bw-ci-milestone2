@@ -18,6 +18,7 @@
 </head>
 
 <body class="gradient">
+    <!-- NAVIGATION + SEARCH BAR -->
     <div class="navigation-wrapper">
         <nav class="navbar navbar-expand-md navbar-dark">
             <a class="navbar-brand" href="index.html">Bingemend<span><i class="fa fa-film"></i></span></a>
@@ -42,6 +43,7 @@
                 </ul>
             </div>
         </nav>
+        <!-- SEARCH BAR CONTAINER -->
         <div class="search-container">
             <form id="searchForm">
                 <input type="text" class="form-control" id="searchInput"
@@ -50,21 +52,41 @@
             </form>
         </div>
     </div>
-
+    <!-- CAROUSEL WITH FEATURED MOVIES FOR MOBILE DEVICES-->
+    <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="..." alt="First Featured Movie">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Second Featured Movie">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Third Featured Movie">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Fourth Featured Movie">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Fifth Featured Movie">
+            </div>
+        </div>
+    </div>
+    <!-- RANDOM FEATURED MOVIE CONTAINER -->
     <div id="featuredWrapper" class="container-fluid">
         <div class="row" id="featuredContainer">
         </div>
     </div>
 
-
-    <main class="container-fluid">
+    <!-- SEARCH RESULT CONTAINER -->
+    <section class="container-fluid">
         <div class="row">
             <div id="searchResult">
             </div>
         </div>
-    </main>
-    <!--main section incl. most popular and upcoming list -->
-    <aside class="container">
+    </section>
+    <!-- CONTAINER FOR   -->
+    <main class="container">
         <div class="row">
             <div class="col p-0" id="popularMovies">
             </div>
@@ -91,7 +113,7 @@
             </div>
         </div> -->
 
-    </aside>
+    </main>
 
     <footer class="container-fluid">
         <div class="row">

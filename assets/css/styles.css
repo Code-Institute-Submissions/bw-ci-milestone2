@@ -93,7 +93,7 @@
 }
 
 input[type=text] {
-    min-width: 350px;
+    min-width: 300px;
     max-width: 475px;
 }
 
@@ -131,6 +131,19 @@ input[type=text] {
 /* ========= FEATURED CONTAINER ========= */
 
 /* #region */
+
+#featuredCarousel {
+    display: none;
+}
+
+@media (max-width: 577px) {
+    #featuredWrapper {
+        display: none;
+    }
+    #featuredCarousel {
+        display: block;
+    }
+}
 
 #featuredWrapper {
     margin-bottom: 3rem;
@@ -176,10 +189,12 @@ input[type=text] {
 }
 
 .movie-overview p {
-    max-height: 170px;
+    max-height: 120px;
     margin: 0.5rem;
     overflow: scroll;
 }
+
+.featured-videos {}
 
 @media (min-width: 578px) {
     .featured {
