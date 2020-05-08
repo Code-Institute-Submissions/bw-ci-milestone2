@@ -17,10 +17,10 @@ a:hover {
 /* ========= COLORS ========= */
 
 :root {
-    --site-dark: #024069;
-    --site-primary: #005691;
-    --site-secondary: #8d8d8d;
-    --site-light: #cecece;
+    --site-dark: #827055;
+    --site-primary: #a79e8b;
+    --site-secondary: #d4ceb0;
+    --site-light: #ede7cf;
 }
 
 /* #endregion */
@@ -29,12 +29,32 @@ a:hover {
 
 /* #region */
 
+.navigation-wrapper {
+    z-index: 3;
+    background: rgb(130, 112, 85);
+    background: -moz-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
+    background: -webkit-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
+    background: linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.0) 70%);
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    color: #fff;
+    transition: 2s;
+}
+
+.navigation-wrapper:hover {
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.637);
+}
+
 .navbar {
-    background-color: var(--site-primary);
+    background-color: transparent;
 }
 
 .nav-item {
     background-color: var(--site-dark);
+    border: 1px solid rgba(0, 0, 0, 0.363);
     margin: 2px 8px;
     border-radius: 4px;
     padding: 4px;
@@ -42,16 +62,18 @@ a:hover {
 
 .nav-link, .navbar-brand {
     padding: 4px;
-    color: #fff;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
 }
 
 .navbar-brand {
     font-size: 2rem;
 }
 
-.navbar-brand:hover {
-    color: #fff;
+.brand-img {
+    height: 60px;
 }
 
 .fa-film {
@@ -77,7 +99,6 @@ a:hover {
 
 .search-container {
     height: 70px;
-    background-color: #005691;
     padding: 1em 1em;
     margin-bottom: 1px;
 }
@@ -103,7 +124,7 @@ input[type=text] {
 }
 
 .btn {
-    background-color: #005691;
+    background-color: #827055;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: 0px;
@@ -147,6 +168,7 @@ input[type=text] {
     }
     #featuredCarousel {
         display: block;
+        margin-top: 84px;
     }
 }
 
@@ -158,7 +180,7 @@ input[type=text] {
     position: relative;
     margin: 0 auto;
     width: 100%;
-    height: 250px;
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -166,7 +188,6 @@ input[type=text] {
 
 .featured-content {
     z-index: 2;
-    display: block;
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -183,20 +204,29 @@ input[type=text] {
 }
 
 .featured-poster {
+    margin-top: 8px;
+    position: relative;
     border: 1px solid #000;
     width: 260px;
-    height: 100%;
 }
 
 .movie-overview {
     color: #000;
-    padding: 15px;
+    padding: 12px 10px 12px 5px;
+    min-width: 440px;
 }
 
 .movie-overview .slide {
-    max-height: 120px;
+    height: 120px;
     margin: 0.5rem;
     overflow: auto;
+}
+
+.movie-overview h2 {
+    max-height: 45px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid rgb(73, 73, 73);
 }
 
 .movie-links {
@@ -211,11 +241,25 @@ input[type=text] {
     margin: 0px 15px 0px;
 }
 
-.featured-videos {}
+.featured-videos {
+    text-align: center;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+iframe {
+    margin: 0px 5px;
+}
 
 @media (min-width: 578px) {
     .featured {
-        height: 500px;
+        height: 700px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .featured-poster {
+        display: none;
     }
 }
 
@@ -314,6 +358,8 @@ input[type=text] {
 }
 
 .section-heading {
+    background-color: var(--site-dark);
+    padding-top: 12px;
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
@@ -366,8 +412,9 @@ input[type=text] {
 .button-info {
     position: relative;
     color: #fff;
-    padding: 3px 8px;
+    padding: 6px 8px;
     border: none;
+    border-radius: 5px;
     transition: all 0.8s ease;
     background-color: var(--site-dark);
 }

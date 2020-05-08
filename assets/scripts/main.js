@@ -153,15 +153,6 @@ function changeUrl(randomResult) {
         })
 }
 
-function createIframe(video) {
-    const videoKey = (video && video.key) || 'No key found!!!';
-    const iframe = document.createElement('iframe');
-    iframe.src = `http://www.youtube.com/embed/${videoKey}`;
-    iframe.width = 360;
-    iframe.height = 315;
-    iframe.allowFullscreen = true;
-    return iframe;
-}
 
 function createFeaturedContainer(detailedRandom) {
     /* Object.keys(detailedRandom).forEach(function (key) {
@@ -187,9 +178,10 @@ function createFeaturedContainer(detailedRandom) {
             <p class="overview-content">${detailedRandom.tagline}</p>
             <div style="display:flex; flex-direction: row; 
             justify-content: space-between">
-            <p class="overview-content">${detailedRandom.release_date}</p>
-            <p class="overview-content">${detailedRandom.popularity}</p>
-            <p class="overview-content">${detailedRandom.vote_average}</p>
+            <span><i class="fa fa-film"></i></span><p class="overview-content">${detailedRandom.release_date}</p>
+            <span><i class="fa fa-eye"></i></span><p class="overview-content">${detailedRandom.popularity}</p>
+            <span><i class="fa fa-star"></i></span><p class="overview-content">${detailedRandom.vote_average}</p>
+            <span><i class="fa fa-theater-masks"></i></span><p class="overview-content">${detailedRandom.genres[0].name}, ${detailedRandom.genres[1].name}</p>
             </div>
             <p class="overview-content slide">${detailedRandom.overview}</p>
             <ul class="movie-links">
@@ -197,7 +189,8 @@ function createFeaturedContainer(detailedRandom) {
             <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
             </ul>
             <div class="featured-videos">
-            <iframe width="150" height="100" src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>           
+            <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[1].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
             </div>
         </div>
     </div > `;
