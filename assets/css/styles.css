@@ -7,6 +7,10 @@ a:hover {
     text-decoration: none;
 }
 
+p {
+    margin-bottom: 0.2rem;
+}
+
 .gradient {
     background: rgb(249, 249, 249);
     background: -moz-linear-gradient(90deg, rgba(249, 249, 249, 1) 10%, rgba(247, 247, 247, 1) 20%, rgba(245, 245, 245, 1) 30%, rgba(243, 243, 243, 1) 40%, rgba(241, 241, 241, 1) 50%, rgba(232, 232, 232, 1) 60%, rgba(229, 229, 229, 1) 70%, rgba(226, 226, 226, 1) 80%, rgba(217, 217, 217, 1) 90%);
@@ -34,18 +38,13 @@ a:hover {
     background: rgb(130, 112, 85);
     background: -moz-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
     background: -webkit-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
-    background: linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.0) 70%);
+    background: linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.81995798319328) 18%, rgba(212, 206, 176, 0.61155462184874) 33%, rgba(237, 231, 207, 0.459278711484594) 45%, rgba(237, 231, 207, 0.230987394957983) 58%, rgba(237, 231, 207, 0.0) 90%);
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     color: #fff;
     transition: 2s;
-}
-
-.navigation-wrapper:hover {
-    color: #000;
-    background-color: rgba(255, 255, 255, 0.637);
 }
 
 .navbar {
@@ -82,7 +81,7 @@ a:hover {
 
 .navbar-toggler {
     background-color: var(--site-dark);
-    border: 1px solid #fff !important;
+    border: 1px solid #000 !important;
     padding: 4px;
     color: #000;
 }
@@ -367,7 +366,7 @@ iframe {
 }
 
 .data-list>.container {
-    height: 165px;
+    height: 200px;
     padding: 10px 3px;
     margin: auto;
 }
@@ -388,8 +387,8 @@ iframe {
 
 .data-list {
     display: flex;
-    height: 205px;
-    min-width: 300px;
+    height: fit-content;
+    min-width: 310px;
     max-width: 600px;
     border-left: 2px solid #323232;
     border-bottom: 2px solid #323232;

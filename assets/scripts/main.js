@@ -178,22 +178,22 @@ function createFeaturedContainer(detailedRandom) {
             <p class="overview-content">${detailedRandom.tagline}</p>
             <div style="display:flex; flex-direction: row; 
             justify-content: space-between">
-            <span><i class="fa fa-film"></i></span><p class="overview-content">${detailedRandom.release_date}</p>
-            <span><i class="fa fa-eye"></i></span><p class="overview-content">${detailedRandom.popularity}</p>
-            <span><i class="fa fa-star"></i></span><p class="overview-content">${detailedRandom.vote_average}</p>
-            <span><i class="fa fa-theater-masks"></i></span><p class="overview-content">${detailedRandom.genres[0].name}, ${detailedRandom.genres[1].name}</p>
+                <span><i class="fa fa-film"></i></span><p class="overview-content">${detailedRandom.release_date}</p>
+                <span><i class="fa fa-eye"></i></span><p class="overview-content">${detailedRandom.popularity}</p>
+                <span><i class="fa fa-star"></i></span><p class="overview-content">${detailedRandom.vote_average}</p>
+                <span><i class="fa fa-theater-masks"></i></span><p class="overview-content">${detailedRandom.genres[0].name}, ${detailedRandom.genres[1].name}</p>
             </div>
             <p class="overview-content slide">${detailedRandom.overview}</p>
             <ul class="movie-links">
-            <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
-            <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
+                <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
+                <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
             </ul>
             <div class="featured-videos">
-            <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>           
-            <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[1].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
+                <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>           
+                <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[1].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
             </div>
         </div>
-    </div > `;
+    </div>`;
     container.innerHTML = content;
     return container;
 }
@@ -226,40 +226,50 @@ function createShowsContainer(popularShowsResults) {
 }
 // function used to build a template for popular movie and popular shows columns
 function popularTemplate(popularShowsResults) {
-    return popularShowsResults.map((movie) => {
+    return popularShowsResults.slice(0, 5).map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
-            return `<div class="data-list" >
-        <img class="thumbnail" src="assets/img/poster_placeholder.png" /><div class="container">
-            <h3 class="list-heading">${movie.title}</h3>
-            <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div></div> `;
+            return `
+            <div class="data-list">
+                <img class="thumbnail" src="assets/img/poster_placeholder.png"/>
+                <div class="container">
+                    <h3 class="list-heading">${movie.title}</h3>
+                    <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                </div>
+            </div>`;
         }
         else {
             // if statement to correctly display Movie Data
             if (movie.title != undefined) {
-                return `<div class="data-list" >
-        <img class="thumbnail" src="${imgSrc + movie.poster_path}" /><div class="container">
-            <h3 class="list-heading">${movie.title}</h3>
-            <span style="display:flex">
-                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-                <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
-            </span>
-            <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
-        </div>
-                </div> `;
+                return `
+                <div class="data-list">
+                    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+                    <div class="container">
+                        <h3 class="list-heading">${movie.title}</h3>
+                        <span style="display:flex">
+                            <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</ p>
+                            <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                        </span>
+                        <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    </div>
+                </div>`;
             }
             // else if statement to get data for TV Show
             else if (movie.name != undefined && movie.poster_path != null) {
-                return `<div class="data-list" >
-        <img class="thumbnail" src="${imgSrc + movie.poster_path}" /><div class="container">
-            <h3 class="list-heading">${movie.name}</h3>
-            <span style="display:flex">
-                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-                <h5 class="list-info pl-4">${movie.vote_average}</h5><i class="fa fa-star ml-1"></i>
-            </span>
-            <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
-        </div>
-                </div> `;
+                return `
+                <div class="data-list">
+                    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+                    <div class="container">
+                    <h3 class="list-heading">${movie.name}</h3>
+                    <span style="display:flex">
+                        <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                        <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                    </span>
+                    <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    </div>
+                </div>`;
             }
         }
     })
@@ -268,26 +278,34 @@ function popularTemplate(popularShowsResults) {
 }
 // function used to build a template for upcoming column
 function upcomingTemplate(upcomingResults) {
-    return upcomingResults.map((movie) => {
+    return upcomingResults.slice(0, 5).map((movie) => {
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
-            return `<div class="data-list" >
-        <img class="thumbnail" src="assets/img/poster_placeholder.png" /><div class="container">
-            <h3 class="list-heading">${movie.title}</h3>
-            <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-            <h5 class="list-info">${movie.overview}</h5><h5 class="list-info">${movie.popularity}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button></div></div> `;
+            return `
+            <div class="data-list">
+                <img class="thumbnail" src="assets/img/poster_placeholder.png" />
+                <div class="container">
+                    <h3 class="list-heading">${movie.title}</h3>
+                    <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
+                    <p class="list-info">${movie.popularity}</p>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                </div>
+            </div> `;
         }
         else {
-            return `<div   class="data-list" >
-        <img class="thumbnail" src="${imgSrc + movie.poster_path}" /><div class="container">
-            <h3 class="list-heading">${movie.title}</h3>
-            <span style="display:flex">
-                <h5 class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5>
-                <h5 class="list-info pl-4">${movie.release_date}</h5>
-            </span>
-            <h5 class="list-info">${movie.overview.slice(0, 30) + '...'}</h5><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
-        </div>
-                </div> `;
+            return `
+            <div class="data-list" >
+                <img class="thumbnail" src="${imgSrc + movie.poster_path}" />
+                <div class="container">
+                    <h3 class="list-heading">${movie.title}</h3>
+                    <span style="display:flex">
+                    <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                    <p class="list-info pl-4">${movie.release_date}</p>
+                    </span>
+                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                </div>
+            </div>`;
         }
     }
 
