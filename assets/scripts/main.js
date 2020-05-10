@@ -315,7 +315,7 @@ function upcomingTemplate(upcomingResults) {
 }
 
 //hides the column when clicked on Column Heading ( mobile device UX )
-window.onload = function () {
+window.onload = setTimeout(function () {
     if (window.innerWidth < 767) {
         document.querySelector('#headingMovies').addEventListener('click', function () {
             let column1 = document.getElementById('columnMovies');
@@ -350,4 +350,4 @@ window.onload = function () {
 
         })
     }
-};
+}, 2000);
