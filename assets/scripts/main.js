@@ -206,14 +206,14 @@ function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${upcomingTemplate(upcomingResults)} `;
-    container.innerHTML = `<h2 class="section-heading">Upcoming Releases</h2> ` + resultTemplate;
+    container.innerHTML = `<h2 id="upcomingHeading" class="section-heading">Upcoming Releases</h2>` + `<div id="columnUpcoming">` + resultTemplate + `</div>`;
     return container;
 }// Function to create container for Popular Movies data results and get the template for html/css
 function createMovieContainer(popularMovieResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${popularTemplate(popularMovieResults)} `;
-    container.innerHTML = `<h2 class="section-heading">Most Popular Movies</h2> ` + resultTemplate;
+    container.innerHTML = `<h2 id="headingMovies" class="section-heading">Most Popular Movies</h2>` + `<div id="columnMovies">` + resultTemplate + `</div>`;
     return container;
 }
 // Function to create container for Popular Shows data results and get the template for html/css
@@ -221,7 +221,7 @@ function createShowsContainer(popularShowsResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
     let resultTemplate = `${popularTemplate(popularShowsResults)} `;
-    container.innerHTML = `<h2 class="section-heading">Most Popular Shows</h2> ` + resultTemplate;
+    container.innerHTML = `<h2 id="headingShows" class="section-heading">Most Popular Shows</h2> ` + `<div id="columnShows">` + resultTemplate + `</div>`;
     return container;
 }
 // function used to build a template for popular movie and popular shows columns
@@ -313,3 +313,41 @@ function upcomingTemplate(upcomingResults) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+
+//hides the column when clicked on Column Heading ( mobile device UX )
+window.onload = function () {
+    if (window.innerWidth < 767) {
+        document.querySelector('#headingMovies').addEventListener('click', function () {
+            let column1 = document.getElementById('columnMovies');
+            if (column1.style.display === "none") {
+                column1.style.display = "block";
+            }
+            else {
+                column1.style.display = "none";
+            }
+
+        })
+
+        document.querySelector('#headingShows').addEventListener('click', function () {
+            let column2 = document.getElementById('columnShows');
+            if (column2.style.display === "none") {
+                column2.style.display = "block";
+            }
+            else {
+                column2.style.display = "none";
+            }
+
+        })
+
+        document.querySelector('#upcomingMovies').addEventListener('click', function () {
+            let column3 = document.getElementById('columnUpcoming');
+            if (column3.style.display === "none") {
+                column3.style.display = "block";
+            }
+            else {
+                column3.style.display = "none";
+            }
+
+        })
+    }
+};
