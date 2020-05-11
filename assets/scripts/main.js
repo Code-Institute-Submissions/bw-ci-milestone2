@@ -251,7 +251,7 @@ function popularTemplate(popularShowsResults) {
                             <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -267,7 +267,7 @@ function popularTemplate(popularShowsResults) {
                         <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -289,7 +289,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <p class="list-info">${movie.popularity}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div> `;
         }
@@ -303,7 +303,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info pl-4">${movie.release_date}</p>
                     </span>
-                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p><button id="moreInfo" data-movie-id="${movie.id}" class="button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p><button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div>`;
         }
@@ -350,4 +350,23 @@ window.onload = setTimeout(function () {
 
         })
     }
-}, 2000);
+}, 2500);
+// More info button function to display more data in new tab
+window.onload = setTimeout(function () {
+    let moreInfoBtn = document.getElementsByClassName("detailed-info");
+    let detailedContainer = document.getElementById("detailedContainer");
+
+    if (window.innerWidth < 767) {
+        for (var i = 0; i < moreInfoBtn.length; i++) {
+            moreInfoBtn[i].addEventListener('click', function () {
+                console.log(this.getAttribute('data-movie-id'));
+            }, false)
+
+            //  let movieID = moreInfoBtn.getAtribute('data-movie-id');
+
+        }
+    }
+    else {
+
+    }
+}, 2500)
