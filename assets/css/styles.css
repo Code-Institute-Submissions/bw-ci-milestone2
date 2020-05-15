@@ -21,9 +21,9 @@ p {
 /* ========= COLORS ========= */
 
 :root {
-    --site-dark: #827055;
-    --site-primary: #a79e8b;
-    --site-secondary: #d4ceb0;
+    --site-dark: #505050;
+    --site-primary: #8f8f8f;
+    --site-secondary: #b6b6b6;
     --site-light: #ede7cf;
 }
 
@@ -35,10 +35,10 @@ p {
 
 .navigation-wrapper {
     z-index: 3;
-    background: rgb(130, 112, 85);
-    background: -moz-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
-    background: -webkit-linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.9051995798319328) 18%, rgba(212, 206, 176, 0.6951155462184874) 33%, rgba(237, 231, 207, 0.7259278711484594) 45%, rgba(237, 231, 207, 0.6530987394957983) 58%, rgba(237, 231, 207, 0.27494747899159666) 70%);
-    background: linear-gradient(180deg, rgba(130, 112, 85, 0.9360119047619048) 5%, rgba(167, 158, 139, 0.81995798319328) 18%, rgba(212, 206, 176, 0.61155462184874) 33%, rgba(237, 231, 207, 0.459278711484594) 45%, rgba(237, 231, 207, 0.230987394957983) 58%, rgba(237, 231, 207, 0.0) 90%);
+    background: rgb(80, 80, 80);
+    background: -moz-linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.450) 58%, rgba(80, 80, 80, 0.28) 70%);
+    background: -webkit-linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.450) 58%, rgba(80, 80, 80, 0.28) 70%);
+    background: linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.150) 58%, rgba(80, 80, 80, 0.0) 70%);
     position: absolute;
     width: 100%;
     top: 0;
@@ -86,8 +86,9 @@ p {
     color: #000;
 }
 
-.nav-link:hover {
+.nav-item:hover {
     color: #000;
+    background-color: var(--site-primary);
 }
 
 /* #endregion */
@@ -123,7 +124,7 @@ input[type=text] {
 }
 
 .btn {
-    background-color: #827055;
+    background-color: var(--site-dark);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: 0px;
@@ -278,7 +279,7 @@ iframe {
 /* #region */
 
 #searchResult {
-    margin: 0 auto;
+    margin: 0px auto;
     padding: 0px 20px;
 }
 
@@ -359,6 +360,8 @@ iframe {
 .section-heading {
     min-width: 310px;
     background-color: var(--site-dark);
+    border: 1px solid #000;
+    border-radius: 3px;
     padding-top: 12px;
     font-size: 1.5rem;
     text-align: center;

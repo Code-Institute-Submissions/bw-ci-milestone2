@@ -9,28 +9,27 @@ const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=fa720f3
 // Get data from an API using users input value
 
 let userSearch = document.querySelector('#searchBtn');
-function executeSearch() {
-    userSearch.addEventListener('click', function (event) {
-        event.preventDefault();
-        const searchResult = document.querySelector('#searchResult');
-        const searchInput = $('#searchInput').val();
-        fetch(searchAllUrl + searchInput)
-            .then((response) => response.json())
-            .then((data) => {
-                searchResult.innerHTML = '';
-                let movies = data.results;
-                let searchContainer = fillSearchContainer(movies);
-                searchResult.appendChild(searchContainer);
-                console.log(data)
-            })
-            .catch((error) => {
-                console.log('Error: ', error);
-            });
-        // Hide featured container when user searches for a movie
-        let featuredDiv = document.querySelector("#featuredWrapper");
-        featuredDiv.style.display = 'none';
-    })
-}
+userSearch.addEventListener('click', function (event) {
+    event.preventDefault();
+    const searchResult = document.querySelector('#searchResult');
+    const searchInput = $('#searchInput').val();
+    fetch(searchAllUrl + searchInput)
+        .then((response) => response.json())
+        .then((data) => {
+            searchResult.innerHTML = '';
+            let movies = data.results;
+            let searchContainer = fillSearchContainer(movies);
+            searchResult.appendChild(searchContainer);
+            console.log(data)
+        })
+        .catch((error) => {
+            console.log('Error: ', error);
+        });
+    // Hide featured container when user searches for a movie
+    let featuredDiv = document.querySelector("#featuredWrapper");
+    featuredDiv.style.display = 'none';
+})
+
 // generate a container for search result and fill in the data with movieSection function
 
 function fillSearchContainer(movies) {
@@ -80,63 +79,61 @@ function searchTemplate(movies) {
         .join('')
 }
 // fetch data from different API sources and display Landing Page content
-function executeDomColumns() {
-    document.addEventListener("DOMContentLoaded", function (event) {
-        const upcomingMovies = document.querySelector('#upcomingMovies');
-        const popularMovies = document.querySelector('#popularMovies');
-        const popularShows = document.querySelector('#popularShows');
-        event.preventDefault();
-        // Fetch Data for Upcoming Column, assign results and append to HTML section
-        fetch(upcomingUrl)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Upcoming', data);
-                upcomingMovies.innerHTML = '';
-                let upcomingResults = data.results;
-                let getUpcoming = createUpcomingContainer(upcomingResults);
-                upcomingMovies.appendChild(getUpcoming)
-            })
-        // Fetch Data for Popular Movier Column, assign results and append to HTML section
-        fetch(popularMoviesUrl)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Popular Movies', data)
+document.addEventListener("DOMContentLoaded", function (event) {
+    const upcomingMovies = document.querySelector('#upcomingMovies');
+    const popularMovies = document.querySelector('#popularMovies');
+    const popularShows = document.querySelector('#popularShows');
+    event.preventDefault();
+    // Fetch Data for Upcoming Column, assign results and append to HTML section
+    fetch(upcomingUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Upcoming', data);
+            upcomingMovies.innerHTML = '';
+            let upcomingResults = data.results;
+            let getUpcoming = createUpcomingContainer(upcomingResults);
+            upcomingMovies.appendChild(getUpcoming)
+        })
+    // Fetch Data for Popular Movier Column, assign results and append to HTML section
+    fetch(popularMoviesUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Popular Movies', data)
 
-                popularMovies.innerHTML = '';
-                const popularMovieResults = data.results;
-                const getPopularMovies = createMovieContainer(popularMovieResults);
-                popularMovies.appendChild(getPopularMovies)
-            })
-        // Fetch Data for Popular Shows Column, assign results and append to HTML section
-        fetch(popularShowsUrl)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('PopularShows', data)
-                popularShows.innerHTML = '';
-                let popularShowsResults = data.results;
-                let getPopularShows = createShowsContainer(popularShowsResults);
-                popularShows.appendChild(getPopularShows)
-            })
-            .catch((error) => {
-                console.log('Error: ', error);
-            });
-        // Fetch Data for Featured Movie hero area, assign results and append to HTML section
-        // Fetches from Trending and generates random object from array
-        fetch(featuredUrl)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('FeaturedUrl', data)
-                let featuredResults = data.results;
-                //select random from the featuredResults array
-                let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
-                changeUrl(randomResult)
-            })
-    })
-}
+            popularMovies.innerHTML = '';
+            const popularMovieResults = data.results;
+            const getPopularMovies = createMovieContainer(popularMovieResults);
+            popularMovies.appendChild(getPopularMovies)
+        })
+    // Fetch Data for Popular Shows Column, assign results and append to HTML section
+    fetch(popularShowsUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('PopularShows', data)
+            popularShows.innerHTML = '';
+            let popularShowsResults = data.results;
+            let getPopularShows = createShowsContainer(popularShowsResults);
+            popularShows.appendChild(getPopularShows)
+        })
+        .catch((error) => {
+            console.log('Error: ', error);
+        });
+    // Fetch Data for Featured Movie hero area, assign results and append to HTML section
+    // Fetches from Trending and generates random object from array
+    fetch(featuredUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('FeaturedUrl', data)
+            let featuredResults = data.results;
+            //select random from the featuredResults array
+            let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
+            changeUrl(randomResult)
+        })
+})
+
 //Takes randomly selected item from Trending and fetches it by id to another API call ( allows appending videos and images)
 function changeUrl(randomResult) {
     let id = randomResult.id;
-    console.log('id of randomresult', typeof id, id)
 
     const featured = document.querySelector('#featuredContainer');
     const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&append_to_response=videos,images`
@@ -147,11 +144,9 @@ function changeUrl(randomResult) {
 
             featured.innerHTML = '';
             console.log('detail', detailedRandom)
-            console.log(typeof detailedRandom);
             console.log(Object.keys(detailedRandom))
             let getFeatured = createFeaturedContainer(detailedRandom);
             featured.appendChild(getFeatured);
-            console.log('detailedRandom', typeof detailedRandom, detailedRandom)
         })
 }
 
@@ -229,6 +224,7 @@ function createShowsContainer(popularShowsResults) {
 // function used to build a template for popular movie and popular shows columns
 function popularTemplate(popularShowsResults) {
     return popularShowsResults.slice(0, 5).map((movie) => {
+        let movieId = movie.id
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `
@@ -253,7 +249,7 @@ function popularTemplate(popularShowsResults) {
                             <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <a onclick="movieNewPage('${movie.id}')" id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</a>
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -269,7 +265,7 @@ function popularTemplate(popularShowsResults) {
                         <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <a onclick="movieNewPage('${movie.id}')" id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</a>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -291,7 +287,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <p class="list-info">${movie.popularity}</p>
-                    <a onclick="movieNewPage('${movie.id}')" id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</a>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div> `;
         }
@@ -305,8 +301,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info pl-4">${movie.release_date}</p>
                     </span>
-                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <a onclick="movieNewPage('${movie.id}')" id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</a>
+                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p><button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div>`;
         }
@@ -354,5 +349,36 @@ window.onload = setTimeout(function () {
         })
     }
 }, 2500);
+// More info button function to display more data in new tab
 
 
+
+
+window.onload = setTimeout(function (event) {
+
+    let buttons = document.getElementsByClassName("detailed-info");
+    let detailedContainer = document.getElementById("detailedContainer");
+    let getMovieId = function () {
+        let movieId = this.getAttribute("data-movie-id");
+        console.log(movieId);
+        fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&language=en-US')
+
+            .then((response) => response.json())
+            .then((data) => {
+                let movie = data;
+                console.log(movie)
+            }
+            )
+
+    };
+
+
+    Array.from(buttons).forEach(function (button) {
+        button.addEventListener('click', getMovieId, function () {
+
+        });
+    });
+
+
+
+}, 2500);
