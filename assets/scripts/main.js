@@ -12,6 +12,7 @@ let userSearch = document.querySelector('#searchBtn');
 userSearch.addEventListener('click', function (event) {
     event.preventDefault();
     const searchResult = document.querySelector('#searchResult');
+    searchResult.style.display = "block"
     const searchInput = $('#searchInput').val();
     fetch(searchAllUrl + searchInput)
         .then((response) => response.json())

@@ -279,7 +279,8 @@ iframe {
 /* #region */
 
 #searchResult {
-    margin: 0px auto;
+    display: none;
+    margin: 180px auto;
     padding: 0px 20px;
 }
 
