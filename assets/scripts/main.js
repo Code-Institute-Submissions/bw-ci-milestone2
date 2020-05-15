@@ -249,7 +249,7 @@ function popularTemplate(popularShowsResults) {
                             <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -265,7 +265,7 @@ function popularTemplate(popularShowsResults) {
                         <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -287,7 +287,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <p class="list-info">${movie.popularity}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
                 </div>
             </div> `;
         }
@@ -301,7 +301,8 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info pl-4">${movie.release_date}</p>
                     </span>
-                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p><button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
                 </div>
             </div>`;
         }
@@ -353,20 +354,33 @@ window.onload = setTimeout(function () {
 
 
 
+function getMoreInfo(movie) {
+    let container = document.createElement("div")
 
-window.onload = setTimeout(function (event) {
+    container.setAttribute('class', 'my-content');
+    container.innerHTML = `${movie.overview}`;
+    return container;
+}
+
+
+
+window.onload = setTimeout(function getInfoForEachButton() {
 
     let buttons = document.getElementsByClassName("detailed-info");
     let detailedContainer = document.getElementById("detailedContainer");
     let getMovieId = function () {
         let movieId = this.getAttribute("data-movie-id");
         console.log(movieId);
-        fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&language=en-US')
+        fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
 
             .then((response) => response.json())
             .then((data) => {
                 let movie = data;
                 console.log(movie)
+
+                detailedContainer.innerHTML = '';
+                let moreInfoContent = getMoreInfo(movie);
+                detailedContainer.appendChild(moreInfoContent)
             }
             )
 
@@ -375,10 +389,7 @@ window.onload = setTimeout(function (event) {
 
     Array.from(buttons).forEach(function (button) {
         button.addEventListener('click', getMovieId, function () {
-
         });
     });
-
-
 
 }, 2500);
