@@ -35,16 +35,18 @@ p {
 
 .navigation-wrapper {
     z-index: 3;
-    background: rgb(80, 80, 80);
-    background: -moz-linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.450) 58%, rgba(80, 80, 80, 0.28) 70%);
-    background: -webkit-linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.450) 58%, rgba(80, 80, 80, 0.28) 70%);
-    background: linear-gradient(180deg, rgba(80, 80, 80, 0.90) 5%, rgba(80, 80, 80, 0.80) 18%, rgba(80, 80, 80, 0.70) 33%, rgba(80, 80, 80, 0.60) 45%, rgba(80, 80, 80, 0.150) 58%, rgba(80, 80, 80, 0.0) 70%);
+    background-color: transparent;
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     color: #fff;
-    transition: 2s;
+}
+
+.navbar-light .navbar-brand {
+    font-family: Verdana, sans-serif;
+    color: #000;
+    text-shadow: 2px 2px #fff;
 }
 
 .navbar {
@@ -68,7 +70,7 @@ p {
 }
 
 .navbar-brand {
-    font-size: 2rem;
+    font-size: 2.3rem;
 }
 
 .brand-img {

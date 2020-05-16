@@ -225,7 +225,6 @@ function createShowsContainer(popularShowsResults) {
 // function used to build a template for popular movie and popular shows columns
 function popularTemplate(popularShowsResults) {
     return popularShowsResults.slice(0, 5).map((movie) => {
-        let movieId = movie.id
         // put placeholder img if no poster available in API
         if (movie.poster_path === null) {
             return `
@@ -250,7 +249,7 @@ function popularTemplate(popularShowsResults) {
                             <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -266,7 +265,7 @@ function popularTemplate(popularShowsResults) {
                         <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-tv button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -288,7 +287,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <p class="list-info">${movie.popularity}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div> `;
         }
@@ -303,7 +302,7 @@ function upcomingTemplate(upcomingResults) {
                     <p class="list-info pl-4">${movie.release_date}</p>
                     </span>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="detailed-info button-info float-right" data-toggle="modal" data-target="#exampleModal">More Info</button>
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div>`;
         }
@@ -355,19 +354,28 @@ window.onload = setTimeout(function () {
 
 
 
-function getMoreInfo(movie) {
+function movieMoreInfoContent(movie) {
     let container = document.createElement("div")
 
     container.setAttribute('class', 'my-content');
-    container.innerHTML = `${movie.overview}`;
+    container.innerHTML = `<p>${movie.title}</p>
+    <p>${movie.overview}</p>
+    <p>${movie.genres[0].name}</p>
+    <p>${movie.popularity}</p>
+    <p>${movie.release_date}</p>
+    <p>${movie.runtime}</p>
+    <p>${movie.vote_average}</p>
+    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+    <img class="thumbnail" src="${imgSrc + '/' + movie.images.backdrops[0].file_path}"/>
+`;
     return container;
 }
 
 
 
-window.onload = setTimeout(function getInfoForEachButton() {
+window.onload = setTimeout(function getInfoForEachMovieButton() {
 
-    let buttons = document.getElementsByClassName("detailed-info");
+    let buttonsMovie = document.getElementsByClassName("button-movie");
     let detailedContainer = document.getElementById("detailedContainer");
     let getMovieId = function () {
         let movieId = this.getAttribute("data-movie-id");
@@ -380,7 +388,7 @@ window.onload = setTimeout(function getInfoForEachButton() {
                 console.log(movie)
 
                 detailedContainer.innerHTML = '';
-                let moreInfoContent = getMoreInfo(movie);
+                let moreInfoContent = movieMoreInfoContent(movie);
                 detailedContainer.appendChild(moreInfoContent)
             }
             )
@@ -388,8 +396,57 @@ window.onload = setTimeout(function getInfoForEachButton() {
     };
 
 
-    Array.from(buttons).forEach(function (button) {
+    Array.from(buttonsMovie).forEach(function (button) {
         button.addEventListener('click', getMovieId, function () {
+        });
+    });
+
+}, 2500);
+
+function tvMoreInfoContent(tv) {
+    let container = document.createElement("div")
+
+    container.setAttribute('class', 'my-content');
+    container.innerHTML = `<p>${tv.name}</p>
+    <p>${tv.overview}</p>
+    <p>${tv.genres[0].name}</p>
+    <p>${tv.popularity} IMDB Views</p>
+    <p>${tv.number_of_seasons} Seasons</p>
+    <p>${tv.number_of_episodes} Episodes</p>
+    <p>${tv.vote_average}</p>
+    <img class="thumbnail" src="${imgSrc + tv.poster_path}"/>
+    <img class="thumbnail" src="${imgSrc + '/' + tv.images.backdrops[0].file_path}"/>
+`;
+    return container;
+}
+
+
+
+window.onload = setTimeout(function getInfoForEachTvButton() {
+
+    let buttonsTv = document.getElementsByClassName("button-tv");
+    let detailedContainer = document.getElementById("detailedContainer");
+    let getTvId = function () {
+        let movieId = this.getAttribute("data-movie-id");
+        console.log(movieId);
+        fetch('https://api.themoviedb.org/3/tv/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
+
+            .then((response) => response.json())
+            .then((data) => {
+                let tv = data;
+                console.log(tv)
+
+                detailedContainer.innerHTML = '';
+                let moreInfoContent = tvMoreInfoContent(tv);
+                detailedContainer.appendChild(moreInfoContent)
+            }
+            )
+
+    };
+
+
+    Array.from(buttonsTv).forEach(function (button) {
+        button.addEventListener('click', getTvId, function () {
         });
     });
 
