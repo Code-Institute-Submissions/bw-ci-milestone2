@@ -49,7 +49,7 @@ function searchTemplate(movies) {
         if (movie.poster_path === null) {
             return `<div class="movie-searched movie-border">
             <div class="movie-border">Click for more info</div>
-            <img class="poster-img movie-border" src="assets/img/poster_placeholder.png" data-movie-id="{movie.id}"/>
+            <img class="poster-img redirect-imdb movie-border" src="assets/img/poster_placeholder.png"
             <h3 class="movie-heading">${movie.title}</h3>
             <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
         }
@@ -58,7 +58,7 @@ function searchTemplate(movies) {
             if (movie.title != undefined) {
                 return `<div class="movie-searched movie-border">
                 <div class="movie-border">Click for more info</div>
-                <img class="poster-img movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
+                <img class="poster-img redirect-imdb movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}"
                 <h3 class="movie-heading">${movie.title.slice(0, 34)}</h3>
                 <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
 
@@ -68,7 +68,7 @@ function searchTemplate(movies) {
             else if (movie.name != undefined && movie.poster_path != null) {
                 return `<div class="movie-searched movie-border">
                 <div class ="movie-border">Click for more info</div>
-                <img class="poster-img movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}" />
+                <img class="poster-img redirect-imdb movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}"
                 <h3 class="movie-heading">${movie.name}</h3>
                 <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
             }
@@ -151,7 +151,7 @@ function changeUrl(randomResult) {
         })
 }
 
-
+// creates the content of Featured container using detailed random trending movie data
 function createFeaturedContainer(detailedRandom) {
     /* Object.keys(detailedRandom).forEach(function (key) {
          console.log(key)
@@ -186,9 +186,8 @@ function createFeaturedContainer(detailedRandom) {
                 <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
                 <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
             </ul>
-            <div class="featured-videos">
-                <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>           
-                <iframe height="100" width="200" src="https://www.youtube.com/embed/${detailedRandom.videos.results[1].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
+            <div class ="featured-videos">
+                <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
             </div>
         </div>
     </div>`;
@@ -259,7 +258,7 @@ function popularTemplate(popularShowsResults) {
                 <div class="data-list">
                     <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
                     <div class="container">
-                    <h3 class="list-heading">${movie.name}</h3>
+                    <h3 class="list-heading">${movie.name.slice(0, 20)}</h3>
                     <span style="display:flex">
                         <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                         <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
@@ -358,15 +357,29 @@ function movieMoreInfoContent(movie) {
     let container = document.createElement("div")
 
     container.setAttribute('class', 'my-content');
-    container.innerHTML = `<p>${movie.title}</p>
-    <p>${movie.overview}</p>
+    container.innerHTML = `
+    <div class="modal-header">
+        <div class="modal-title">
+            <h2>${movie.title}</h2>
+        </div>
+        <button type="button" class="close" data-dismiss="modal"        aria-label="Close">
+        <span aria-hidden="true">X</span>
+        </button>
+    </div>
+        <div class="modal-top">
+    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+    <div class="modal-items">
     <p>${movie.genres[0].name}</p>
     <p>${movie.popularity}</p>
+    <p>${movie.vote_average}</p>
     <p>${movie.release_date}</p>
     <p>${movie.runtime}</p>
-    <p>${movie.vote_average}</p>
-    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
-    <img class="thumbnail" src="${imgSrc + '/' + movie.images.backdrops[0].file_path}"/>
+    </div>
+    </div>
+
+    <p>${movie.overview}</p>
+    
+    <iframe src="https://www.youtube.com/embed/${movie.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
 `;
     return container;
 }
@@ -403,25 +416,39 @@ window.onload = setTimeout(function getInfoForEachMovieButton() {
 
 }, 2500);
 
+// content for TV Show more Info Modal
 function tvMoreInfoContent(tv) {
     let container = document.createElement("div")
 
     container.setAttribute('class', 'my-content');
-    container.innerHTML = `<p>${tv.name}</p>
-    <p>${tv.overview}</p>
+    container.innerHTML = `
+    <div class="modal-header">
+        <div class="modal-title">
+            <h2>${tv.name}</h2>
+        </div>
+        <button type="button" class="close" data-dismiss="modal"        aria-label="Close">
+        <span aria-hidden="true">X</span>
+        </button>
+    </div>
+        <div class="modal-top">
+    <img class="thumbnail" src="${imgSrc + tv.poster_path}"/>
+    <div class="modal-items">
     <p>${tv.genres[0].name}</p>
-    <p>${tv.popularity} IMDB Views</p>
+    <p>${tv.popularity}</p>
+    <p>${tv.vote_average}</p>
     <p>${tv.number_of_seasons} Seasons</p>
     <p>${tv.number_of_episodes} Episodes</p>
-    <p>${tv.vote_average}</p>
-    <img class="thumbnail" src="${imgSrc + tv.poster_path}"/>
-    <img class="thumbnail" src="${imgSrc + '/' + tv.images.backdrops[0].file_path}"/>
+    </div>
+    </div>
+
+    <p>${tv.overview}</p>
+    
+    <iframe src="https://www.youtube.com/embed/${tv.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
 `;
     return container;
 }
 
-
-
+// gets data for tv shows modal (detailed data)
 window.onload = setTimeout(function getInfoForEachTvButton() {
 
     let buttonsTv = document.getElementsByClassName("button-tv");
@@ -451,3 +478,8 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     });
 
 }, 2500);
+
+
+
+// on click of redirect-imdb fetch more details and add  onclick to the redirect-imdb
+// onclick = "location.href='https://imdb.com/title/${movie.id}';" />
