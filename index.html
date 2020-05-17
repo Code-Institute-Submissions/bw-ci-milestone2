@@ -11,16 +11,16 @@
     <!-- Google Fonts API-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <!-- FONT AWESOME CDN-->
-    <script src="https://kit.fontawesome.com/5f1486327f.js" crossorigin="anonymous" SameSite=None></script>
+    <script src="https://kit.fontawesome.com/5f1486327f.js" crossorigin="anonymous"></script>
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Bingemend | Movie Recommendation Catalogue</title>
 </head>
 
-<body class="gradient">
-    <!-- NAVIGATION + SEARCH BAR -->
+<body>
+    <!--NAVIGATION + SEARCH BAR-->
     <div class="navigation-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="index.html">
                 Bingemend</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -81,12 +81,12 @@
     </div>
 
     <!-- SEARCH RESULT CONTAINER -->
-    <section class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div id="searchResult">
             </div>
         </div>
-    </section>
+    </div>
     <!-- CONTAINER FOR Popular/upcoming columns  -->
     <main class="container">
         <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="moreInfoModal"
@@ -116,11 +116,22 @@
         <div class="row">
             <ul class="footer-nav m-auto p-5 list-unstyled">
                 <li class="nav-item mr-2"><a href="#"><i class="fa fa-level-up-alt"></i></a></li>
-                <li class="nav-item mr-2"><a href="#"><i class="fa fa-github"></i></a></li>
-                <li class="nav-item mr-2"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li class="nav-item mr-2"><a href="#"><i class="fa fa-envelope"></i></a></li>
+                <li class="nav-item mr-2"><a href="https://www.github.com/badziobw" target="_blank"><i
+                            class="fa fa-github"></i></a>
+                </li>
+                <li class="nav-item mr-2"><a href="https://www.linkedin.com/in/blazejwerbanowski" target="_blank"><i
+                            class="fa fa-linkedin"></i></a></li>
+                <li class="nav-item mr-2"><a href="https://www.themoviedb.org/documentation/api" target="_blank"><img
+                            src="assets/img/tmdb_logo.png" alt="TMDB API Logo"></a></li>
             </ul>
         </div>
+        <p>This project is intended for educational use.</p>
+        <p>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+                    alt="Valid CSS!" />
+            </a>
+        </p>
     </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

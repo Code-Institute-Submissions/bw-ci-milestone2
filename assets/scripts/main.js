@@ -21,7 +21,6 @@ userSearch.addEventListener('click', function (event) {
             let movies = data.results;
             let searchContainer = fillSearchContainer(movies);
             searchResult.appendChild(searchContainer);
-            console.log(data)
         })
         .catch((error) => {
             console.log('Error: ', error);
@@ -89,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch(upcomingUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log('Upcoming', data);
             upcomingMovies.innerHTML = '';
             let upcomingResults = data.results;
             let getUpcoming = createUpcomingContainer(upcomingResults);
@@ -99,8 +97,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch(popularMoviesUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log('Popular Movies', data)
-
             popularMovies.innerHTML = '';
             const popularMovieResults = data.results;
             const getPopularMovies = createMovieContainer(popularMovieResults);
@@ -110,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch(popularShowsUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log('PopularShows', data)
             popularShows.innerHTML = '';
             let popularShowsResults = data.results;
             let getPopularShows = createShowsContainer(popularShowsResults);
@@ -124,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch(featuredUrl)
         .then((response) => response.json())
         .then((data) => {
-            console.log('FeaturedUrl', data)
             let featuredResults = data.results;
             //select random from the featuredResults array
             let randomResult = featuredResults[Math.floor(Math.random() * featuredResults.length)];
@@ -144,8 +138,6 @@ function changeUrl(randomResult) {
             let detailedRandom = data;
 
             featured.innerHTML = '';
-            console.log('detail', detailedRandom)
-            console.log(Object.keys(detailedRandom))
             let getFeatured = createFeaturedContainer(detailedRandom);
             featured.appendChild(getFeatured);
         })
@@ -153,12 +145,6 @@ function changeUrl(randomResult) {
 
 // creates the content of Featured container using detailed random trending movie data
 function createFeaturedContainer(detailedRandom) {
-    /* Object.keys(detailedRandom).forEach(function (key) {
-         console.log(key)
-     })*/
-
-
-    console.log(detailedRandom.videos.results[0].key)
     let imgPath = `${imgSrc + detailedRandom.backdrop_path}`;
     let container = document.createElement('div');
     container.setAttribute('class', 'featured');
@@ -182,12 +168,12 @@ function createFeaturedContainer(detailedRandom) {
                 <span><i class="fa fa-theater-masks"></i></span><p class="overview-content">${detailedRandom.genres[0].name}, ${detailedRandom.genres[1].name}</p>
             </div>
             <p class="overview-content slide">${detailedRandom.overview}</p>
+            <div class ="featured-external">
             <ul class="movie-links">
                 <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
                 <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
             </ul>
-            <div class ="featured-videos">
-                <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
             </div>
         </div>
     </div>`;
@@ -392,13 +378,11 @@ window.onload = setTimeout(function getInfoForEachMovieButton() {
     let detailedContainer = document.getElementById("detailedContainer");
     let getMovieId = function () {
         let movieId = this.getAttribute("data-movie-id");
-        console.log(movieId);
         fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
 
             .then((response) => response.json())
             .then((data) => {
                 let movie = data;
-                console.log(movie)
 
                 detailedContainer.innerHTML = '';
                 let moreInfoContent = movieMoreInfoContent(movie);
@@ -455,13 +439,11 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     let detailedContainer = document.getElementById("detailedContainer");
     let getTvId = function () {
         let movieId = this.getAttribute("data-movie-id");
-        console.log(movieId);
         fetch('https://api.themoviedb.org/3/tv/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
 
             .then((response) => response.json())
             .then((data) => {
                 let tv = data;
-                console.log(tv)
 
                 detailedContainer.innerHTML = '';
                 let moreInfoContent = tvMoreInfoContent(tv);
