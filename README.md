@@ -1,7 +1,7 @@
 # Bingemend - a movie recommendation site
 Milestone 2 project @ Code Institute  -- Interactive Front End Development module. Movie recommendation website.
 ### Demo
-
+[Github Pages](https://badziobw.github.io/bw-ci-milestone2/)
 A live version of the project can be found here hoster via Github Pages
 
 

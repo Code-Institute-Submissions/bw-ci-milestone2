@@ -60,7 +60,7 @@ body {
 
 .navbar-brand {
     font-size: 2.3rem;
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 .navbar-toggler {
@@ -102,7 +102,7 @@ body {
 }
 
 input[type=text] {
-    min-width: 300px;
+    min-width: 250px;
     max-width: 475px;
 }
 
@@ -343,7 +343,6 @@ input[type=text] {
 
 .section-heading {
     color: #fff;
-    min-width: 310px;
     background-color: #505050;
     border: 1px solid #000;
     border-radius: 3px;
@@ -361,16 +360,17 @@ input[type=text] {
 }
 
 .list-heading {
-    font-size: 1.3rem;
+    font-size: 1.2em;
     font-weight: 600;
     font-style: italic;
-    max-height: 50px;
+    max-height: 26px;
     white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .list-info {
+    height: 70px;
     font-size: 1rem;
 }
 
@@ -407,6 +407,16 @@ input[type=text] {
 .button-info:hover {
     background-color: #8f8f8f;
     transform: scale(1.1);
+}
+
+@media (max-width: 576px) {
+    .list-info {
+        max-height: 55px;
+        overflow: hidden;
+    }
+    .data-list>.container {
+        overflow: hidden;
+    }
 }
 
 /* #endregion */
@@ -505,6 +515,12 @@ input[type=text] {
     padding: 3px;
 }
 
+@media (max-width: 576px) {
+    .my-content>iframe {
+        height: 150px;
+    }
+}
+
 /* #endregion */
 
 /* ========= FOOTER ========= */
@@ -522,7 +538,7 @@ footer p {
 footer .fa {
     color: #fff;
     font-size: 1.5em;
-    margin: 10px 1.5rem;
+    margin: 10px;
 }
 
 footer img {
@@ -532,6 +548,8 @@ footer img {
 
 .list-unstyled {
     display: flex;
+    align-content: center;
+    justify-content: center;
 }
 
 /* #endregion */

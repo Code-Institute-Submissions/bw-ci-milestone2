@@ -230,8 +230,8 @@ function popularTemplate(popularShowsResults) {
                     <div class="container">
                         <h3 class="list-heading">${movie.title}</h3>
                         <span style="display:flex">
-                            <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</ p>
-                            <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                            <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</ p>
+                            <p class="pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                         <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
@@ -246,8 +246,8 @@ function popularTemplate(popularShowsResults) {
                     <div class="container">
                     <h3 class="list-heading">${movie.name.slice(0, 20)}</h3>
                     <span style="display:flex">
-                        <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
-                        <p class="list-info pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                        <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                        <p class="pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <button id="moreInfo" data-movie-id="${movie.id}" class="button-tv button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
@@ -259,6 +259,7 @@ function popularTemplate(popularShowsResults) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+
 // function used to build a template for upcoming column
 function upcomingTemplate(upcomingResults) {
     return upcomingResults.slice(0, 5).map((movie) => {
@@ -271,7 +272,6 @@ function upcomingTemplate(upcomingResults) {
                     <h3 class="list-heading">${movie.title}</h3>
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <p class="list-info">${movie.popularity}</p>
                     <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                 </div>
             </div> `;
@@ -283,8 +283,8 @@ function upcomingTemplate(upcomingResults) {
                 <div class="container">
                     <h3 class="list-heading">${movie.title}</h3>
                     <span style="display:flex">
-                    <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
-                    <p class="list-info pl-4">${movie.release_date}</p>
+                    <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
+                    <p class="pl-4">${movie.release_date}</p>
                     </span>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
