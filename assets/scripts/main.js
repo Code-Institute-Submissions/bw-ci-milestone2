@@ -6,8 +6,8 @@ const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=fa
 const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
 const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
-// Get data from an API using users input value
 
+// Get data from an API using users input value
 let userSearch = document.querySelector('#searchBtn');
 userSearch.addEventListener('click', function (event) {
     event.preventDefault();
@@ -31,7 +31,6 @@ userSearch.addEventListener('click', function (event) {
 })
 
 // generate a container for search result and fill in the data with movieSection function
-
 function fillSearchContainer(movies) {
     let movieDiv = document.createElement('div');
     movieDiv.setAttribute('class', 'result-container');
@@ -40,8 +39,7 @@ function fillSearchContainer(movies) {
     return movieDiv;
 }
 
-// fill in the data to container 
-// transform genre id's to corresponding strings
+// generate template for search results after users input to the search bar
 function searchTemplate(movies) {
     return movies.map((movie) => {
         // if statement to check if there is a poster available for a movie
@@ -78,6 +76,7 @@ function searchTemplate(movies) {
         // Removes a comma between search results (template literals append fix)
         .join('')
 }
+
 // fetch data from different API sources and display Landing Page content
 document.addEventListener("DOMContentLoaded", function (event) {
     const upcomingMovies = document.querySelector('#upcomingMovies');
@@ -181,9 +180,6 @@ function createFeaturedContainer(detailedRandom) {
     return container;
 }
 
-// get ID of random Result and pass it to fetch movie with &append_to_response=videos
-
-
 // Function to create container for Upcoming data results and get the template for html/css
 function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
@@ -191,7 +187,9 @@ function createUpcomingContainer(upcomingResults) {
     let resultTemplate = `${upcomingTemplate(upcomingResults)} `;
     container.innerHTML = `<h2 id="upcomingHeading" class="section-heading">Upcoming Releases</h2>` + `<div id="columnUpcoming">` + resultTemplate + `</div>`;
     return container;
-}// Function to create container for Popular Movies data results and get the template for html/css
+}
+
+// Function to create container for Popular Movies data results and get the template for html/css
 function createMovieContainer(popularMovieResults) {
     let container = document.createElement('div');
     container.setAttribute('class', 'list-container');
@@ -199,6 +197,7 @@ function createMovieContainer(popularMovieResults) {
     container.innerHTML = `<h2 id="headingMovies" class="section-heading">Most Popular Movies</h2>` + `<div id="columnMovies">` + resultTemplate + `</div>`;
     return container;
 }
+
 // Function to create container for Popular Shows data results and get the template for html/css
 function createShowsContainer(popularShowsResults) {
     let container = document.createElement('div');
@@ -207,6 +206,7 @@ function createShowsContainer(popularShowsResults) {
     container.innerHTML = `<h2 id="headingShows" class="section-heading">Most Popular Shows</h2> ` + `<div id="columnShows">` + resultTemplate + `</div>`;
     return container;
 }
+
 // function used to build a template for popular movie and popular shows columns
 function popularTemplate(popularShowsResults) {
     return popularShowsResults.slice(0, 5).map((movie) => {
@@ -260,7 +260,7 @@ function popularTemplate(popularShowsResults) {
         .join('')
 }
 
-// function used to build a template for upcoming column
+// creates template for 3rd(upcoming releases) column 
 function upcomingTemplate(upcomingResults) {
     return upcomingResults.slice(0, 5).map((movie) => {
         // put placeholder img if no poster available in API
@@ -335,10 +335,8 @@ window.onload = setTimeout(function () {
         })
     }
 }, 2500);
-// More info button function to display more data in new tab
 
-
-
+// On clicking 'More Info'  in the 1st and 3rd columns(movie data fetch) displays modal with details
 function movieMoreInfoContent(movie) {
     let container = document.createElement("div")
 
@@ -370,8 +368,7 @@ function movieMoreInfoContent(movie) {
     return container;
 }
 
-
-
+// Fetches data for function movieMoreInfoContent
 window.onload = setTimeout(function getInfoForEachMovieButton() {
 
     let buttonsMovie = document.getElementsByClassName("button-movie");
@@ -400,7 +397,7 @@ window.onload = setTimeout(function getInfoForEachMovieButton() {
 
 }, 2500);
 
-// content for TV Show more Info Modal
+// on clicking 'More Info' in the middle column (TV data fetch) displays modal with details
 function tvMoreInfoContent(tv) {
     let container = document.createElement("div")
 
@@ -432,7 +429,7 @@ function tvMoreInfoContent(tv) {
     return container;
 }
 
-// gets data for tv shows modal (detailed data)
+// Fetches data for function tvMoreInfoContent
 window.onload = setTimeout(function getInfoForEachTvButton() {
 
     let buttonsTv = document.getElementsByClassName("button-tv");
@@ -460,8 +457,3 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     });
 
 }, 2500);
-
-
-
-// on click of redirect-imdb fetch more details and add  onclick to the redirect-imdb
-// onclick = "location.href='https://imdb.com/title/${movie.id}';" />
