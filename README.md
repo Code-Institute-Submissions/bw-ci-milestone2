@@ -54,6 +54,18 @@ Initially my goal was to add more functionality to the site. My plan is to add a
 
 ## Testing
 
+### Test Successful
+
+* More Info button Modal 
+    * clicking on 'More Info' button should display modal on both desktop and mobile views, all the data inside the modal should display neatly and be responsive.
+    * the modal should close only when clicking 'X' or outside of the content container of the modal.
+
+* Correct attribute ( target="blank" ) is used for all external links to display foreign websites in new tab.
+* Featured Container Carousel should work on all mobile devices.
+
+### Test Unsucessful
+
+* Featured Container Carousel does not work on Chrome's mobile browser, tested on multiple smartphones.
 ## Deployment
 
 The site is hosted on GitHub Pages and is update automatically with every commit to the master branch.

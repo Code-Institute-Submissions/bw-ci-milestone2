@@ -2,6 +2,10 @@
 
 /* #region */
 
+html, body {
+    font-family: 'Balsamiq Sans', cursive;
+}
+
 a:hover {
     color: #000;
     text-decoration: none;
@@ -244,6 +248,11 @@ input[type=text] {
     width: 100%;
 }
 
+.carousel-item>div>iframe {
+    margin: 0 auto;
+    width: 90%;
+}
+
 .mobile-overview, .mobile-ratings {
     padding: 15px;
     background-color: rgba(255, 255, 255, 0.6);
@@ -256,6 +265,13 @@ input[type=text] {
     text-align: center;
 }
 
+.mobile-overview>p {
+    margin: 20px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
 .mobile-ratings {
     font-size: 24px;
     display: flex;
@@ -263,8 +279,6 @@ input[type=text] {
     align-items: center;
     justify-content: center;
 }
-
-.mobile-ratings>p {}
 
 .mobile-poster {
     position: relative;
@@ -506,7 +520,7 @@ input[type=text] {
 }
 
 .modal-items {
-    height: 195px;
+    min-height: 195px;
     background-color: rgba(33, 33, 33, 0.2);
     color: #fff;
     display: flex;
@@ -520,7 +534,7 @@ input[type=text] {
 }
 
 .modal-items>p {
-    margin: 20px;
+    margin: 10px;
 }
 
 .modal-header .close {

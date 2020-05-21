@@ -45,7 +45,7 @@ function searchTemplate(movies) {
         // if statement to check if there is a poster available for a movie
         if (movie.poster_path === null) {
             return `<div class="movie-searched movie-border">
-            <div class="movie-border">Click for more info</div>
+            <div class="movie-border"> </div>
             <img class="poster-img redirect-imdb movie-border" src="assets/img/poster_placeholder.png"
             <h3 class="movie-heading">${movie.title}</h3>
             <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
@@ -54,7 +54,7 @@ function searchTemplate(movies) {
             // get the title from its source whether its tv show or a movie
             if (movie.title != undefined) {
                 return `<div class="movie-searched movie-border">
-                <div class="movie-border">Click for more info</div>
+                <div class="movie-border"> </div>
                 <img class="poster-img redirect-imdb movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}"
                 <h3 class="movie-heading">${movie.title.slice(0, 34)}</h3>
                 <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
@@ -64,7 +64,7 @@ function searchTemplate(movies) {
             // get data for TV shows and ommit search results for actors
             else if (movie.name != undefined && movie.poster_path != null) {
                 return `<div class="movie-searched movie-border">
-                <div class ="movie-border">Click for more info</div>
+                <div class ="movie-border"> </div>
                 <img class="poster-img redirect-imdb movie-border" src="${imgSrc + movie.poster_path}" data-movie-id="${movie.id}"
                 <h3 class="movie-heading">${movie.name}</h3>
                 <h5 class="movie-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</h5></div> `;
@@ -172,8 +172,7 @@ function createFeaturedContainer(detailedRandom) {
             </div>
             <div class="carousel-item">
             <div>
-            <img src="https://img.youtube.com/vi/${detailedRandom.videos.results[0].key}/default.jpg"
-            data-toggle="modal" data-target="#fullscreenModal" data-src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}">
+            <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}"></iframe>
             </div>
             </div>
         </div>
