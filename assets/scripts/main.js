@@ -136,7 +136,6 @@ function changeUrl(randomResult) {
             let detailedRandom = data;
 
             featured.innerHTML = '';
-            trailerContainer.innerHTML = '';
             let getFeatured = createFeaturedContainer(detailedRandom);
             featured.appendChild(getFeatured)
         })
@@ -149,8 +148,39 @@ function createFeaturedContainer(detailedRandom) {
     container.setAttribute('class', 'featured');
     container.setAttribute('id', 'featured');
     container.style.backgroundImage = 'url(' + imgPath + ')';
+    if (window.innerWidth < 578) {
+        var content = `    <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
 
-    let content = `
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img class="mobile-poster" src="${imgSrc + detailedRandom.poster_path}"/>
+            </div>
+            <div class="carousel-item">
+            <div class="mobile-overview">
+            <h2>${detailedRandom.title}</h2>
+
+            <p>${detailedRandom.overview}</p>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div class="mobile-ratings">
+                <span><i class="fa fa-film"></i></span><p>${detailedRandom.release_date}</p>
+                <span><i class="fa fa-eye"></i></span><p>${detailedRandom.popularity}</p>
+                <span><i class="fa fa-star"></i></span><p>${detailedRandom.vote_average}</p>
+                <span><i class="fa fa-theater-masks"></i></span><p>${detailedRandom.genres[0].name}, ${detailedRandom.genres[1].name}</p>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <div>
+            <img src="https://img.youtube.com/vi/${detailedRandom.videos.results[0].key}/default.jpg"
+            data-toggle="modal" data-target="#fullscreenModal" data-src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}">
+            </div>
+            </div>
+        </div>
+        </div>`;
+    }
+    else {
+        content = `
     <div class="featured-content">
         <div class="poster">
             <img class="featured-poster" src="${imgSrc + detailedRandom.poster_path}"/>
@@ -178,9 +208,11 @@ function createFeaturedContainer(detailedRandom) {
             </div>
         </div>
     </div>`;
+    }
     container.innerHTML = content;
-    return container;
+    return container
 }
+
 // Function to create container for Upcoming data results and get the template for html/css
 function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
@@ -354,11 +386,11 @@ function movieMoreInfoContent(movie) {
         <div class="modal-top">
     <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
     <div class="modal-items">
-    <p>${movie.genres[0].name}</p>
-    <p>${movie.popularity}</p>
-    <p>${movie.vote_average}</p>
-    <p>${movie.release_date}</p>
-    <p>${movie.runtime}</p>
+    <p><span><i class="fas fa-theater-masks"></i> <span>${movie.genres[0].name}</p>
+    <p><span><i class="fas fa-eye"></i> <span>${movie.popularity}</p>
+    <p><span><i class="fas fa-star"></i> <span>${movie.vote_average}</p>
+    <p><span><i class="fas fa-film"></i> <span>${movie.release_date}</p>
+    <p><span><i class="fas fa-clock"></i> <span>${movie.runtime}</p>
     </div>
     </div>
 
@@ -415,9 +447,9 @@ function tvMoreInfoContent(tv) {
         <div class="modal-top">
     <img class="thumbnail" src="${imgSrc + tv.poster_path}"/>
     <div class="modal-items">
-    <p>${tv.genres[0].name}</p>
-    <p>${tv.popularity}</p>
-    <p>${tv.vote_average}</p>
+    <p><span><i class="fas fa-theater-masks"></i> <span>${tv.genres[0].name}</p>
+    <p><span><i class="fas fa-eye"></i> <span>${tv.popularity}</p>
+    <p><span><i class="fas fa-star"></i> <span>${tv.vote_average}</p>
     <p>${tv.number_of_seasons} Seasons</p>
     <p>${tv.number_of_episodes} Episodes</p>
     </div>
