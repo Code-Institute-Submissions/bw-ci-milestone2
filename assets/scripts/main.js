@@ -1,11 +1,11 @@
 // API sources
 const APIKEY = 'fa720f307355d98a4377c670d41f97af';
 const imgSrc = 'https://image.tmdb.org/t/p/w500';
-const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=fa720f307355d98a4377c670d41f97af&sort_by=popularity.desc&&query='
-const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=fa720f307355d98a4377c670d41f97af'
-const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
-const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
-const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&page=1'
+const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=' + APIKEY + '&sort_by=popularity.desc&&query='
+const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=' + APIKEY + ''
+const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=' + APIKEY + '&language=en-US&page=1'
+const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=' + APIKEY + '&language=en-US&page=1'
+const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=' + APIKEY + '&language=en-US&page=1'
 
 // Get data from an API using users input value
 let userSearch = document.querySelector('#searchBtn');
@@ -128,17 +128,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //Takes randomly selected item from Trending and fetches it by id to another API call ( allows appending videos and images)
 function changeUrl(randomResult) {
     let id = randomResult.id;
-
     const featured = document.querySelector('#featuredContainer');
-    const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=fa720f307355d98a4377c670d41f97af&language=en-US&append_to_response=videos,images`
+    const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKEY}&language=en-US&append_to_response=videos,images`
     fetch(getDetails)
         .then((response) => response.json())
         .then((data) => {
             let detailedRandom = data;
 
             featured.innerHTML = '';
+            trailerContainer.innerHTML = '';
             let getFeatured = createFeaturedContainer(detailedRandom);
-            featured.appendChild(getFeatured);
+            featured.appendChild(getFeatured)
         })
 }
 
@@ -172,14 +172,15 @@ function createFeaturedContainer(detailedRandom) {
                 <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
                 <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
             </ul>
-            <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
+            <img src="https://img.youtube.com/vi/${detailedRandom.videos.results[0].key}/default.jpg" class="iframe-thumbnail"
+            data-toggle="modal" data-target="#fullscreenModal" data-src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}">
+
             </div>
         </div>
     </div>`;
     container.innerHTML = content;
     return container;
 }
-
 // Function to create container for Upcoming data results and get the template for html/css
 function createUpcomingContainer(upcomingResults) {
     let container = document.createElement('div');
@@ -230,11 +231,11 @@ function popularTemplate(popularShowsResults) {
                     <div class="container">
                         <h3 class="list-heading">${movie.title}</h3>
                         <span style="display:flex">
-                            <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</ p>
-                            <p class="pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                            <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</ p>
+                            <p class="pl-2">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                         </span>
                         <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        <button id="moreInfo" data-movie-id="${movie.id}"  class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
                     </div>
                 </div>`;
             }
@@ -246,8 +247,8 @@ function popularTemplate(popularShowsResults) {
                     <div class="container">
                     <h3 class="list-heading">${movie.name.slice(0, 20)}</h3>
                     <span style="display:flex">
-                        <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
-                        <p class="pl-4">${movie.vote_average}</p><i class="fa fa-star ml-1"></i>
+                        <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</p>
+                        <p class="pl-4">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                     </span>
                     <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <button id="moreInfo" data-movie-id="${movie.id}" class="button-tv button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
@@ -283,8 +284,8 @@ function upcomingTemplate(upcomingResults) {
                 <div class="container">
                     <h3 class="list-heading">${movie.title}</h3>
                     <span style="display:flex">
-                    <p>${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
-                    <p class="pl-4">${movie.release_date}</p>
+                    <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</p>
+                    <p class="pl-2">${'<span><i class="fa fa-film"></i></span> ' + movie.release_date}</p>
                     </span>
                     <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
                     <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
@@ -340,7 +341,7 @@ window.onload = setTimeout(function () {
 function movieMoreInfoContent(movie) {
     let container = document.createElement("div")
 
-    container.setAttribute('class', 'my-content');
+    container.setAttribute('class', 'modal-content');
     container.innerHTML = `
     <div class="modal-header">
         <div class="modal-title">
@@ -375,7 +376,7 @@ window.onload = setTimeout(function getInfoForEachMovieButton() {
     let detailedContainer = document.getElementById("detailedContainer");
     let getMovieId = function () {
         let movieId = this.getAttribute("data-movie-id");
-        fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
+        fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=' + APIKEY + '&append_to_response=videos,images')
 
             .then((response) => response.json())
             .then((data) => {
@@ -401,7 +402,7 @@ window.onload = setTimeout(function getInfoForEachMovieButton() {
 function tvMoreInfoContent(tv) {
     let container = document.createElement("div")
 
-    container.setAttribute('class', 'my-content');
+    container.setAttribute('class', 'modal-content');
     container.innerHTML = `
     <div class="modal-header">
         <div class="modal-title">
@@ -424,7 +425,7 @@ function tvMoreInfoContent(tv) {
 
     <p>${tv.overview}</p>
     
-    <iframe src="https://www.youtube.com/embed/${tv.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
+    <iframe data-toggle="modal" data-target="#ytModal" src="https://www.youtube.com/embed/${tv.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
 `;
     return container;
 }
@@ -436,7 +437,7 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     let detailedContainer = document.getElementById("detailedContainer");
     let getTvId = function () {
         let movieId = this.getAttribute("data-movie-id");
-        fetch('https://api.themoviedb.org/3/tv/' + movieId + '?api_key=fa720f307355d98a4377c670d41f97af&append_to_response=videos,images')
+        fetch(`https://api.themoviedb.org/3/tv/${movieId}?api_key=${APIKEY}&append_to_response=videos,images`)
 
             .then((response) => response.json())
             .then((data) => {
@@ -457,3 +458,5 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     });
 
 }, 2500);
+
+//User experience addition. display trailer in fullscreen modal
