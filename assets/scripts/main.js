@@ -1,6 +1,6 @@
 // API sources
 const APIKEY = 'fa720f307355d98a4377c670d41f97af';
-const imgSrc = 'https://image.tmdb.org/t/p/w500';
+const imgSrc = 'https://image.tmdb.org/t/p/w300';
 const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=' + APIKEY + '&sort_by=popularity.desc&&query='
 const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=' + APIKEY + ''
 const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=' + APIKEY + '&language=en-US&page=1'
@@ -8,10 +8,10 @@ const popularMoviesUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=' +
 const popularShowsUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=' + APIKEY + '&language=en-US&page=1'
 
 // Get data from an API using users input value
-let userSearch = document.querySelector('#searchBtn');
+let userSearch = document.getElementById('searchBtn');
 userSearch.addEventListener('click', function (event) {
     event.preventDefault();
-    const searchResult = document.querySelector('#searchResult');
+    const searchResult = document.getElementById('searchResult');
     searchResult.style.display = "block"
     const searchInput = $('#searchInput').val();
     fetch(searchAllUrl + searchInput)
@@ -26,7 +26,7 @@ userSearch.addEventListener('click', function (event) {
             console.log('Error: ', error);
         });
     // Hide featured container when user searches for a movie
-    let featuredDiv = document.querySelector("#featuredWrapper");
+    let featuredDiv = document.getElementById("featuredWrapper");
     featuredDiv.style.display = 'none';
 })
 
@@ -79,9 +79,9 @@ function searchTemplate(movies) {
 
 // fetch data from different API sources and display Landing Page content
 document.addEventListener("DOMContentLoaded", function (event) {
-    const upcomingMovies = document.querySelector('#upcomingMovies');
-    const popularMovies = document.querySelector('#popularMovies');
-    const popularShows = document.querySelector('#popularShows');
+    const upcomingMovies = document.getElementById('upcomingMovies');
+    const popularMovies = document.getElementById('popularMovies');
+    const popularShows = document.getElementById('popularShows');
     event.preventDefault();
     // Fetch Data for Upcoming Column, assign results and append to HTML section
     fetch(upcomingUrl)
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //Takes randomly selected item from Trending and fetches it by id to another API call ( allows appending videos and images)
 function changeUrl(randomResult) {
     let id = randomResult.id;
-    const featured = document.querySelector('#featuredContainer');
+    const featured = document.getElementById('featuredContainer');
     const getDetails = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKEY}&language=en-US&append_to_response=videos,images`
     fetch(getDetails)
         .then((response) => response.json())
@@ -172,7 +172,7 @@ function createFeaturedContainer(detailedRandom) {
             </div>
             <div class="carousel-item">
             <div>
-            <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}"></iframe>
+            <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
             </div>
             </div>
         </div>
@@ -200,9 +200,7 @@ function createFeaturedContainer(detailedRandom) {
             <ul class="movie-links">
                 <li><a class="button-info" href="https://www.imdb.com/title/${detailedRandom.imdb_id}/" target="_blank">IMDB</a></li>
                 <li><a class="button-info" href="${detailedRandom.homepage}" target="_blank">Official Site</a></li>
-            </ul>
-            <img src="https://img.youtube.com/vi/${detailedRandom.videos.results[0].key}/default.jpg" class="iframe-thumbnail"
-            data-toggle="modal" data-target="#fullscreenModal" data-src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}">
+            </ul>  <iframe src="https://www.youtube.com/embed/${detailedRandom.videos.results[0].key}" frameborder="0" allow="picture-in-picture"  allowfullscreen></iframe>
 
             </div>
         </div>
@@ -333,7 +331,7 @@ function upcomingTemplate(upcomingResults) {
 //hides the column when clicked on Column Heading ( mobile device UX )
 window.onload = setTimeout(function () {
     if (window.innerWidth < 767) {
-        document.querySelector('#headingMovies').addEventListener('click', function () {
+        document.getElementById('headingMovies').addEventListener('click', function () {
             let column1 = document.getElementById('columnMovies');
             if (column1.style.display === "none") {
                 column1.style.display = "block";
@@ -344,7 +342,7 @@ window.onload = setTimeout(function () {
 
         })
 
-        document.querySelector('#headingShows').addEventListener('click', function () {
+        document.getElementById('headingShows').addEventListener('click', function () {
             let column2 = document.getElementById('columnShows');
             if (column2.style.display === "none") {
                 column2.style.display = "block";
@@ -355,7 +353,7 @@ window.onload = setTimeout(function () {
 
         })
 
-        document.querySelector('#upcomingMovies').addEventListener('click', function () {
+        document.getElementById('upcomingMovies').addEventListener('click', function () {
             let column3 = document.getElementById('columnUpcoming');
             if (column3.style.display === "none") {
                 column3.style.display = "block";
