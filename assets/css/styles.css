@@ -369,6 +369,7 @@ input[type=text] {
 .poster-img {
     align-self: center;
     width: 70%;
+    height: 200px;
     margin-top: -36px;
 }
 
@@ -398,7 +399,7 @@ input[type=text] {
 
 .list-container {
     margin: 15px;
-    padding: 20px;
+    padding: 8px;
     background-color: rgba(145, 145, 145, 0.05);
     box-shadow: 0px 0px 6px 2px #444;
 }
@@ -422,7 +423,7 @@ input[type=text] {
 }
 
 .list-heading {
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: 600;
     font-style: italic;
     max-height: 26px;
@@ -432,15 +433,16 @@ input[type=text] {
 }
 
 .list-info {
-    height: 70px;
+    height: 105px;
+    overflow: hidden;
+    padding: 5px;
     font-size: 1rem;
 }
 
 .data-list {
     display: flex;
     height: fit-content;
-    min-width: 30px;
-    max-width: 600px;
+    width: 330px;
     border-left: 2px solid #32323267;
     border-bottom: 2px solid #32323273;
     border-top: 1px solid rgba(0, 0, 0, 0.24);
@@ -450,14 +452,8 @@ input[type=text] {
     margin-top: 10px;
 }
 
-.thumbnail {
-    margin: 20px 10px;
-    width: 90px;
-    box-shadow: 0px 0px 2px 2px #000;
-}
-
 .button-info {
-    width: fit-content;
+    width: 100%;
     position: relative;
     color: #fff;
     padding: 6px 8px;
@@ -472,14 +468,14 @@ input[type=text] {
     transform: scale(1.1);
 }
 
-@media (max-width: 576px) {
-    .list-info {
-        max-height: 55px;
-        overflow: hidden;
-    }
-    .data-list>.container {
-        overflow: hidden;
-    }
+.items-responsive {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-responsive>p {
+    padding: 0;
+    margin: 5px;
 }
 
 /* #endregion */
@@ -515,7 +511,7 @@ input[type=text] {
     text-align: center;
 }
 
-.modal-top .thumbnail {
+.thumbnail {
     width: 130px;
 }
 
@@ -535,6 +531,24 @@ input[type=text] {
 
 .modal-items>p {
     margin: 10px;
+}
+
+.card {
+    margin: 3px;
+    width: 70%;
+}
+
+.card-img-top {
+    margin: auto;
+    margin-top: 10px;
+}
+
+.card, .card-body {
+    background: transparent;
+}
+
+.card-body {
+    padding: 0;
 }
 
 .modal-header .close {

@@ -256,15 +256,19 @@ function popularTemplate(popularShowsResults) {
             if (movie.title != undefined) {
                 return `
                 <div class="data-list">
-                    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+                    <div class="card">
+                        <img class="card-img-top" src="${imgSrc + movie.poster_path}" alt="Movie Poster">
+                        <div class="card-body">
+                        <button id="moreInfo" data-movie-id="${movie.id}"  class="button-movie button-info  " data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        </div>
+                    </div>
                     <div class="container">
                         <h3 class="list-heading">${movie.title}</h3>
                         <span style="display:flex">
                             <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</ p>
-                            <p class="pl-2">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
+                            <p class="pl-1">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                         </span>
-                        <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                        <button id="moreInfo" data-movie-id="${movie.id}"  class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        <p class="list-info">${movie.overview}</p>
                     </div>
                 </div>`;
             }
@@ -272,15 +276,19 @@ function popularTemplate(popularShowsResults) {
             else if (movie.name != undefined && movie.poster_path != null) {
                 return `
                 <div class="data-list">
-                    <img class="thumbnail" src="${imgSrc + movie.poster_path}"/>
+                <div class="card">
+                    <img class="card-img-top" src="${imgSrc + movie.poster_path}" alt="Movie Poster">
+                    <div class="card-body">
+                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-tv button-info  " data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    </div>
+                </div>
                     <div class="container">
                     <h3 class="list-heading">${movie.name.slice(0, 20)}</h3>
                     <span style="display:flex">
                         <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</p>
                         <p class="pl-4">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                     </span>
-                    <p class="list-info" style="line-height: 1.2; margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-tv button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <p class="list-info">${movie.overview}</p>
                     </div>
                 </div>`;
             }
@@ -297,27 +305,36 @@ function upcomingTemplate(upcomingResults) {
         if (movie.poster_path === null) {
             return `
             <div class="data-list">
-                <img class="thumbnail" src="assets/img/poster_placeholder.png" />
+                <div class="card">
+                    <img class="card-img-top" src="assets/img/poster_placeholder.png alt="Movie Poster">
+                    <div class="card-body">
+                        <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info  " data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                        </div>
+                    </div>
                 <div class="container">
                     <h3 class="list-heading">${movie.title}</h3>
                     <p class="list-info">${movie.popularity + 'k <span><i class="fa fa-eye"></i></span>'}</p>
-                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <p class="list-info"  >${movie.overview}</p>
                 </div>
             </div> `;
         }
         else {
             return `
-            <div class="data-list" >
-                <img class="thumbnail" src="${imgSrc + movie.poster_path}" />
+            <div class="data-list">
+                <div class="card">
+                    <img class="card-img-top" src="${imgSrc + movie.poster_path}" alt="Movie Poster">
+                    <div class="card-body">
+                         <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info  " data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    </div>
+                </div>
                 <div class="container">
                     <h3 class="list-heading">${movie.title}</h3>
-                    <span style="display:flex">
+                    <span class="items-responsive">
                     <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</p>
-                    <p class="pl-2">${'<span><i class="fa fa-film"></i></span> ' + movie.release_date}</p>
+                    <p>${'<span><i class="fa fa-film"></i></span> ' + movie.release_date}</p>
                     </span>
-                    <p class="list-info" style="line-height: 1.2;margin-bottom: 1rem;">${movie.overview.slice(0, 70) + '...'}</p>
-                    <button id="moreInfo" data-movie-id="${movie.id}" class="button-movie button-info float-right" data-toggle="modal" data-target="#moreInfoModal">More Info</button>
+                    <p class="list-info">${movie.overview}</p>
+  
                 </div>
             </div>`;
         }
