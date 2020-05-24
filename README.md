@@ -16,8 +16,9 @@ To achieve this I have focused on simplistic design and user interface throughou
 ## User Stories
 
 * User 1 - As a movie enthusiast I want to be able to search all types of movies in one place ('Search bar at central position on the website')
-* User 2 - I want to be able to find out as much detail about a movie/tv show as possible without leaving the site. ('More Info modals')
-* User 3 - As a casual viewer I want to get a quick recommendation on what to watch based on other peoples opinions
+* User 2 - I want to be able to find out as much detail about a movie/tv show as possible without leaving the site. (Accomplished by More Info modals that display additional info')
+* User 3 - As a casual viewer I want to get a quick recommendation on what to watch based on other peoples opinions. (Accomplished by having Featured movie container as a focal point on the website)
+* User 4 -  as a more demanding user I want to be able to watch trailers for movie (Accomplished by including trailers in modals and in featured)
 
 ## Wireframes
 
@@ -77,17 +78,16 @@ Pingdom Tools 420 ms. Size: 2.4 MB. Requests: 53. https://tools.pingdom.com/#5c9
 ## Deployment
 
 The site is hosted on GitHub Pages and is update automatically with every commit to the master branch.
-The site can be run locally  by cloning the repository onto your machine and opening with an editor of choice. This is done using >'git clone https://github.com/badziobw/bw-ci-milestone2.git 
-in the terminal, the files are then copied onto your hard drive. 
+The site can be run locally  by cloning the repository onto your machine and opening index.html in a browser of choice. This is done using >'git clone https://github.com/badziobw/bw-ci-milestone2.git' in the terminal, the files are then copied onto your hard drive. 
 
 ## Credits
 
-All the movie data generated for this project was used via [TMDB Api](https://developers.themoviedb.org/) 
-This project is for eductional use.
+* All the movie data generated for this project was used via [TMDB Api](https://developers.themoviedb.org/) 
+* This project is for eductional use.
 
-Special thanks to my mentor Felipe Souza Alarcon for his support throughout the project.
-To help me solve an issue with appending content to container I refered to [this](https://stackoverflow.com/questions/23673905/appendchild-is-not-a-function-javascript) SA question
-To avoid displaying comma in between each data i used [this Stack overflow](https://stackoverflow.com/questions/45812160/unexpected-comma-using-map) solution
-In order to fully undertand how to fetch data from this API I refered to [this](https://www.youtube.com/watch?v=mWg2udweauY) Youtube Video
-For responsiveness image used in readMe I used [Reponsivedesign.is](http://ami.responsivedesign.is/#)
-Modal, navigation and carousel code was based off Bootstrap's own sample code.
+* Special thanks to my mentor Felipe Souza Alarcon for his support throughout the project.
+* To help me solve an issue with appending content to container I refered to [this](https://stackoverflow.com/questions/23673905/appendchild-is-not-a-function-javascript) SA question
+* To avoid displaying comma in between each data i used [this Stack overflow](https://stackoverflow.com/questions/45812160/unexpected-comma-using-map) solution
+* In order to fully undertand how to fetch data from this API I refered to [this](https://www.youtube.com/watch?v=mWg2udweauY) Youtube Video
+* For responsiveness image used in readMe I used [Reponsivedesign.is](http://ami.responsivedesign.is/#)
+* Modal, navigation and carousel code was based off Bootstrap's own sample code.

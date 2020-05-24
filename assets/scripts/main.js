@@ -516,5 +516,3 @@ window.onload = setTimeout(function getInfoForEachTvButton() {
     });
 
 }, 2500);
-
-//User experience addition. display trailer in fullscreen modal
