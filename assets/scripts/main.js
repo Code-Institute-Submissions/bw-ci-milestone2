@@ -1,6 +1,6 @@
 // API sources
 const APIKEY = 'fa720f307355d98a4377c670d41f97af';
-const imgSrc = 'https://image.tmdb.org/t/p/w300';
+const imgSrc = 'https://image.tmdb.org/t/p/w500';
 const searchAllUrl = 'https://api.themoviedb.org/3/search/multi?api_key=' + APIKEY + '&sort_by=popularity.desc&&query='
 const featuredUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=' + APIKEY + ''
 const upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming?api_key=' + APIKEY + '&language=en-US&page=1'
@@ -38,6 +38,19 @@ function fillSearchContainer(movies) {
     movieDiv.innerHTML = resultTemplate;
     return movieDiv;
 }
+
+//validates the search input form
+function validateSearch() {
+    let search = document.getElementById("searchInput").value;
+    if (search == '') {
+
+        alert("Please fill in the search bar with your query.");
+        // takes user to homepage to try inputting value again
+        window.location = '/';
+        return false;
+    }
+}
+
 
 // generate template for search results after users input to the search bar
 function searchTemplate(movies) {
@@ -188,8 +201,7 @@ function createFeaturedContainer(detailedRandom) {
         <div class ="movie-overview">
             <h2>${detailedRandom.title}</h2>
             <p class="overview-content">${detailedRandom.tagline}</p>
-            <div style="display:flex; flex-direction: row; 
-            justify-content: space-between">
+            <div class="modal-icons">
                 <span><i class="fa fa-film"></i></span><p class="overview-content">${detailedRandom.release_date}</p>
                 <span><i class="fa fa-eye"></i></span><p class="overview-content">${detailedRandom.popularity}</p>
                 <span><i class="fa fa-star"></i></span><p class="overview-content">${detailedRandom.vote_average}</p>
@@ -264,7 +276,7 @@ function popularTemplate(popularShowsResults) {
                     </div>
                     <div class="container">
                         <h3 class="list-heading">${movie.title}</h3>
-                        <span style="display:flex">
+                        <span class="d-flex">
                             <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</ p>
                             <p class="pl-1">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                         </span>
@@ -284,7 +296,7 @@ function popularTemplate(popularShowsResults) {
                 </div>
                     <div class="container">
                     <h3 class="list-heading">${movie.name.slice(0, 20)}</h3>
-                    <span style="display:flex">
+                    <span class="d-flex">
                         <p>${'<span><i class="fa fa-eye"></i></span> ' + movie.popularity + 'k'}</p>
                         <p class="pl-4">${'<i class="fa fa-star ml-1"></i>' + ' ' + movie.vote_average}</p>
                     </span>
